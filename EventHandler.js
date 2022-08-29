@@ -9,9 +9,6 @@ function OnSidebarButtonClick(buttonId) {
   if (buttonId == "AboutButton") {
     conentContainer.innerHTML = "<h1>Created in Uppsala!</h1>";
   }
-
-
-
 }
 
 function ToggleNavigation() {
