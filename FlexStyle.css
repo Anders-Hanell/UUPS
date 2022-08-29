@@ -7,7 +7,9 @@
 body {
     width: 100vw;
     height: 100vh;
-    padding: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #GridContainer {
@@ -29,11 +31,12 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .Container {
   border-radius: 10px;
-  margin: 10px 0px;
+  margin-bottom: 10px;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -48,6 +51,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 #Sidebar p {
