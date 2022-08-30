@@ -1,3 +1,19 @@
+function OnStartup() {
+  let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
+  let bodyWidth = screen.availWidth - (window.outerWidth - window.innerWidth);
+
+  document.body.style.height = bodyHeight + "px";
+  document.body.style.width = bodyWidth + "px";
+
+  const titleContainer = document.getElementById("MainTitlePanel");
+  let fontSize = titleContainer.scrollHeight / 2;
+  titleContainer.style.fontSize = fontSize + "px";
+}
+
+function OnWindowResize() {
+  
+}
+
 function OnSidebarButtonClick(buttonId) {
   const conentContainer = document.getElementById("ContentContainer");
   

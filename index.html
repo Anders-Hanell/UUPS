@@ -26,9 +26,13 @@
     </script>
 
   </head>
-  <body> 
+  <body onresize="OnWindowResize()"> 
     <div id="GridContainer">
-      <section id="MainTitlePanel">Uppsala University Pharmacokinetics Simulator</section>
+      <div id="MainTitlePanel">
+        <span id="MainTitleTextSpan">
+          Uppsala University Pharmacokinetics Simulator
+        </span> 
+      </div>
 
       <section id="Sidebar" class="Container">
         <p class="NavigationButton" id="ConstantInfusionButton" onclick="OnSidebarButtonClick(this.id)">Constant infusion</p>
@@ -47,6 +51,7 @@
     </div>
 
     <script>
+      OnStartup();
       UpdateGraph();
     </script>
   </body>
