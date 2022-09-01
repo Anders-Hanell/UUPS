@@ -12,7 +12,7 @@ body {
 
 #GridContainer {
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 10% 90%;
     grid-template-rows: 10% 10% 80%;
     justify-content: space-around;
     width: 100%;
@@ -30,6 +30,7 @@ body {
     align-items: center;
     margin-bottom: 1vh;
     white-space: nowrap;
+    font-size: 500px;
 }
 
 .Container {
@@ -47,19 +48,28 @@ body {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-evenly;
     margin-right: 1vh;
     margin-bottom: 1vh;
+    padding: 15px;
+    padding-bottom: 0px;
 }
 
-#Sidebar p {
-    text-decoration: none;
-    min-height: 50px;
-    border-radius: 10px;
+#Sidebar .ButtonContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 15px;
+  white-space: nowrap;
+  border-radius: 10px;
+  font-size: 1px;
+}
+
+#Sidebar span {
     text-align: center;
-    vertical-align: middle;
-    line-height: 50px;
 }
 
 #TabPanel {
@@ -68,17 +78,22 @@ body {
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    padding: 15px;
+    padding-right: 0px;
 }
 
-#TabPanel p {
-    text-decoration: none;
-    min-height: 50px;
-    min-width: 100px;
-    border-radius: 10px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 50px;
+#TabPanel div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 15px;
 }
 
 #ContentContainer {

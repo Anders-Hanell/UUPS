@@ -35,12 +35,31 @@
       </div>
 
       <section id="Sidebar" class="Container">
-        <p class="NavigationButton" id="ConstantInfusionButton" onclick="OnSidebarButtonClick(this.id)">Constant infusion</p>
-        <p class="NavigationButton" id="OralAdministrationButton" onclick="OnSidebarButtonClick(this.id)">Oral administration</p>
-        <p class="NavigationButton" id="DepotTabletsButton" onclick="OnSidebarButtonClick(this.id)">Depot tablets</p>
-        <p class="NavigationButton" id="ZeroOrderButton" onclick="OnSidebarButtonClick(this.id)">Zero order</p>
-        <p class="NavigationButton" id="IonTrappingButton" onclick="OnSidebarButtonClick(this.id)">Ion trapping</p>
-        <p class="NavigationButton" id="AboutButton" onclick="OnSidebarButtonClick(this.id)">About</p>
+        
+        <div class="ButtonContainer" id="ConstantInfusionButton" onclick="OnSidebarButtonClick(this.id)">
+          <span>Constant<br>infusion</span>
+        </div>
+
+        <div class="ButtonContainer" id="OralAdministrationButton" onclick="OnSidebarButtonClick(this.id)">
+          <span>Oral<br>administration</span>
+        </div>
+
+        <div class="ButtonContainer" id="DepotTabletsButton" onclick="OnSidebarButtonClick(this.id)">
+          <span>Depot<br>tablets</span>
+        </div>
+
+        <div class="ButtonContainer" id="ZeroOrderButton" onclick="OnSidebarButtonClick(this.id)">
+          <span>Zero order<br>kinetics</span>
+        </div>
+
+        <div class="ButtonContainer" id="IonTrappingButton" onclick="OnSidebarButtonClick(this.id)">
+          <span>Ion<br>trapping</span>
+        </div>
+
+        <div class="ButtonContainer" id="AboutButton" onclick="OnSidebarButtonClick(this.id)">
+          <span>About</span>
+        </div>
+
       </section>
 
       <tab-panel id="TabPanel" class="Container"></tab-panel>

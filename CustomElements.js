@@ -35,11 +35,25 @@ class TabPanel extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-    <p class="NavigationButton" onclick="OnGraphButtonClick()">Graph</p>
-    <p class="NavigationButton" onclick="OnControlsButtonClick()">Controls</p>
-    <p class="NavigationButton" onclick="OnBothButtonClick()">Both</p>
-    <p class="NavigationButton" onclick="OnDescriptionButtonClick()">Description</p>
-    <p class="NavigationButton" id="ToggleNavigationButton" onclick="ToggleNavigation()">Hide navigation</p>
+    <div class="ButtonContainer" id="GraphButton" onclick="OnGraphButtonClick()">
+      <span>Graph</span>
+    </div>
+
+    <div class="ButtonContainer" id="ControlsButton" onclick="OnControlsButtonClick()">
+      <span>Controls</span>
+    </div>
+
+    <div class="ButtonContainer" id="BothButton" onclick="OnBothButtonClick()">
+      <span>Both</span>
+    </div>
+
+    <div class="ButtonContainer" id="DescriptionButton" onclick="OnDescriptionButtonClick()">
+      <span>Description</span>
+    </div>
+    
+    <div class="ButtonContainer" id="ToggleNavigationButton" onclick="ToggleNavigation()">
+      <span>Hide navigation</span>
+    </div>
         `;
   }
 }

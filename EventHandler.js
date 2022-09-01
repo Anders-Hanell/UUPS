@@ -1,3 +1,5 @@
+var NavigationIsVisible = true;
+
 function OnStartup() {
   let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
   let bodyWidth = screen.availWidth - (window.outerWidth - window.innerWidth);
@@ -5,9 +7,42 @@ function OnStartup() {
   document.body.style.height = bodyHeight + "px";
   document.body.style.width = bodyWidth + "px";
 
-  const titleContainer = document.getElementById("MainTitlePanel");
-  let fontSize = titleContainer.scrollHeight / 2;
-  titleContainer.style.fontSize = fontSize + "px";
+  AdjustFontSize("MainTitlePanel", 0.95, 0.60);
+  AdjustButtonTextSize();
+}
+
+function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {
+  const container = document.getElementById(containerId);
+  const textSpan = container.querySelector('span');
+
+  container.style.fontSize = "1px";
+
+  let availableWidth = container.scrollWidth * maxWidthPercent;
+  let availableHeight = container.scrollHeight * maxHeightPercent;
+
+  let currentTextWidth = textSpan.scrollWidth;
+  let currentTextHeigth = textSpan.scrollHeight;
+
+  let widthScaling = availableWidth / currentTextWidth;
+  let heightScaling = availableHeight / currentTextHeigth;
+  let scaling = Math.min(widthScaling, heightScaling);
+
+  container.style.fontSize = scaling + "px";
+}
+
+function AdjustButtonTextSize() {
+  AdjustFontSize("ConstantInfusionButton", 0.80, 0.60);
+  AdjustFontSize("OralAdministrationButton", 0.80, 0.60);
+  AdjustFontSize("DepotTabletsButton", 0.80, 0.60);
+  AdjustFontSize("ZeroOrderButton", 0.80, 0.60);
+  AdjustFontSize("IonTrappingButton", 0.80, 0.60);
+  AdjustFontSize("AboutButton", 0.80, 0.60);
+
+  AdjustFontSize("GraphButton", 0.80, 0.60);
+  AdjustFontSize("ControlsButton", 0.80, 0.60);
+  AdjustFontSize("BothButton", 0.80, 0.60);
+  AdjustFontSize("DescriptionButton", 0.80, 0.60);
+  AdjustFontSize("ToggleNavigationButton", 0.80, 0.60);
 }
 
 function OnWindowResize() {
@@ -29,9 +64,8 @@ function OnSidebarButtonClick(buttonId) {
 
 function ToggleNavigation() {
   const toggleButton = document.getElementById("ToggleNavigationButton");
-  const buttonText = toggleButton.textContent;
-
-  if (buttonText == "Hide navigation"){
+  
+  if (NavigationIsVisible) {
     toggleButton.textContent = "Show navigation";
     HideNavigation();
   }
@@ -39,9 +73,13 @@ function ToggleNavigation() {
     toggleButton.textContent = "Hide navigation";
     ShowNavigation();
   }
+
+  NavigationIsVisible = !NavigationIsVisible;
 }
 
 function HideNavigation() {
+  console.log("Attempting to hide the navigation!");
+  
   const titlePanel = document.getElementById("MainTitlePanel");
   titlePanel.style.display = "none";
 
@@ -56,7 +94,7 @@ function HideNavigation() {
 function ShowNavigation() {
   const gridContainer = document.getElementById("GridContainer");
   gridContainer.style.gridTemplateRows = "10fr 10fr 80fr";
-  gridContainer.style.gridTemplateColumns = "15fr 85fr";
+  gridContainer.style.gridTemplateColumns = "10fr 90fr";
   
   const titlePanel = document.getElementById("MainTitlePanel");
   titlePanel.style.display = "flex";
