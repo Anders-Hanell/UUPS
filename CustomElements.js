@@ -5,13 +5,14 @@ class SliderContainer extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-        <p class="SliderMainLabel">The slider</p>
+        <p class="SliderMainLabel"><span>The slider</span></p>
+        <input class="my-slider" name="weight" type="range" oninput="OnNewSliderValue()">
         <div class="SliderValueContainer">
-          <p class="SliderMinLabel">Min</p>
-          <p class="SliderValueLabel">Value</p>
-          <p class="SliderMaxLabel">Max </p>
+          <p class="SliderMinLabel"><span>Min</span></p>
+          <p class="SliderValueLabel"><span>Value</span></p>
+          <p class="SliderMaxLabel"><span>Max</span></p>
         </div>
-        <input class="my-slider" name="weight" type="range" oninput="OnNewSliderValue()">`;
+        `;
   }
 }
 customElements.define('slider-container', SliderContainer);

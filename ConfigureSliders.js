@@ -11,10 +11,15 @@ function ConfigureBasicInfusion_BolusDoseSlider() {
   const valueLabel = container.querySelector('.SliderValueLabel');
   const maxLabel = container.querySelector('.SliderMaxLabel');
 
-  mainLabel.textContent = "Bolus dose (mg)";
-  minLabel.textContent = "0";
-  valueLabel.textContent = BasicInfusion_BolusDoseSliderValue;
-  maxLabel.textContent = "10000";
+  const mainLabelSpan = mainLabel.querySelector('span');
+  const minLabelSpan = minLabel.querySelector('span');
+  const valueLabelSpan = valueLabel.querySelector('span');
+  const maxLabelSpan = maxLabel.querySelector('span');
+
+  mainLabelSpan.innerText = "Bolus dose (mg)";
+  minLabelSpan.innerText = "0";
+  valueLabelSpan.innerText = BasicInfusion_BolusDoseSliderValue;
+  maxLabelSpan.innerText = "10000";
 
   slider.min = "0";
   slider.max = "10000";
@@ -30,10 +35,15 @@ function ConfigureBasicInfusion_InfusionRateSlider() {
   const valueLabel = container.querySelector('.SliderValueLabel');
   const maxLabel = container.querySelector('.SliderMaxLabel');
 
-  mainLabel.textContent = "Infusion rate (mg/min)";
-  minLabel.textContent = "0";
-  valueLabel.textContent = BasicInfusion_InfusionRateSliderValue;
-  maxLabel.textContent = "100";
+  const mainLabelSpan = mainLabel.querySelector('span');
+  const minLabelSpan = minLabel.querySelector('span');
+  const valueLabelSpan = valueLabel.querySelector('span');
+  const maxLabelSpan = maxLabel.querySelector('span');
+
+  mainLabelSpan.innerText = "Infusion rate (mg/min)";
+  minLabelSpan.innerText = "0";
+  valueLabelSpan.innerText = BasicInfusion_InfusionRateSliderValue;
+  maxLabelSpan.innerText = "100";
 
   slider.min = "0";
   slider.max = "100";
@@ -49,10 +59,15 @@ function ConfigureBasicInfusion_ClearanceSlider() {
   const valueLabel = container.querySelector('.SliderValueLabel');
   const maxLabel = container.querySelector('.SliderMaxLabel');
 
-  mainLabel.textContent = "Clearance (ml/min)";
-  minLabel.textContent = "0.0";
-  valueLabel.textContent = BasicInfusion_ClearanceSliderValue;
-  maxLabel.textContent = "0.1";
+  const mainLabelSpan = mainLabel.querySelector('span');
+  const minLabelSpan = minLabel.querySelector('span');
+  const valueLabelSpan = valueLabel.querySelector('span');
+  const maxLabelSpan = maxLabel.querySelector('span');
+
+  mainLabelSpan.innerText = "Clearance (ml/min)";
+  minLabelSpan.innerText = "0.0";
+  valueLabelSpan.innerText = BasicInfusion_ClearanceSliderValue;
+  maxLabelSpan.innerText = "0.1";
 
   slider.min = "0.0";
   slider.max = "0.1";
@@ -68,10 +83,15 @@ function ConfigureBasicInfusion_InfusionTimeSlider() {
   const valueLabel = container.querySelector('.SliderValueLabel');
   const maxLabel = container.querySelector('.SliderMaxLabel');
 
-  mainLabel.textContent = "Infusion time (min)";
-  minLabel.textContent = "0";
-  valueLabel.textContent = BasicInfusion_InfusionTimeSliderValue;
-  maxLabel.textContent = "1000";
+  const mainLabelSpan = mainLabel.querySelector('span');
+  const minLabelSpan = minLabel.querySelector('span');
+  const valueLabelSpan = valueLabel.querySelector('span');
+  const maxLabelSpan = maxLabel.querySelector('span');
+
+  mainLabelSpan.innerText = "Infusion time (min)";
+  minLabelSpan.innerText = "0";
+  valueLabelSpan.innerText = BasicInfusion_InfusionTimeSliderValue;
+  maxLabelSpan.innerText = "1000";
 
   slider.min = "0";
   slider.max = "1000";
@@ -83,24 +103,43 @@ function UpdateSliderValueLabels() {
   let container = document.getElementById('BasicInfusion_BolusDoseSlider');
   let slider = container.querySelector('.my-slider');
   let valueLabel = container.querySelector('.SliderValueLabel');
-  valueLabel.textContent = slider.value;
+  let valueSpan = valueLabel.querySelector('span');
+  valueSpan.innerText = slider.value;
   BasicInfusion_BolusDoseSliderValue = slider.value;
 
   container = document.getElementById('BasicInfusion_InfusionRateSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
-  valueLabel.textContent = slider.value;
+  valueSpan = valueLabel.querySelector('span');
+  valueSpan.innerText = slider.value;
   BasicInfusion_InfusionRateSliderValue = slider.value;
 
   container = document.getElementById('BasicInfusion_ClearanceSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
-  valueLabel.textContent = slider.value;
+  valueSpan = valueLabel.querySelector('span');
+  valueSpan.innerText = slider.value;
   BasicInfusion_ClearanceSliderValue = slider.value;
 
   container = document.getElementById('BasicInfusion_InfusionTimeSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
-  valueLabel.textContent = slider.value;
+  valueSpan = valueLabel.querySelector('span');
+  valueSpan.innerText = slider.value;
   BasicInfusion_InfusionTimeSliderValue = slider.value;
+}
+
+function UpdateSliderFontSizes() {
+  const sliderContainers = document.querySelectorAll('slider-container');
+
+  for (var i = 0; i<sliderContainers.length; i++) {
+    const mainLabel = sliderContainers[i].querySelector('.SliderMainLabel');
+    AdjustFontSizeForContainer(mainLabel, 0.95, 0.60);
+
+    const valueLabelsContainer = sliderContainers[i].querySelector('.SliderValueContainer');
+    const valueLabels = valueLabelsContainer.querySelectorAll('p');
+    for (var j = 0; j<valueLabels.length; j++) {
+      AdjustFontSizeForContainer(valueLabels[j], 0.95, 0.50);
+    }
+  }
 }

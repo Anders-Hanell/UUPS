@@ -9,6 +9,7 @@ function OnStartup() {
 
   AdjustFontSize("MainTitlePanel", 0.95, 0.60);
   AdjustButtonTextSize();
+  UpdateSliderFontSizes();
 }
 
 function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {

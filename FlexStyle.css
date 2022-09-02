@@ -114,30 +114,8 @@ basic-infusion-both {
 }
 
 basic-infusion-graph {
-  height: 75%;
+  height: 70%;
   width: 100%;
-}
-
-#ControlsContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 25%;
-  width: 100%;
-}
-
-.ControlPanelColumn {
-  display: flex;
-  flex-direction: column;
-}
-
-#DescriptionContainer {
-  width: 100%;
-  size: 100%;
-  display: inline;
-  border-radius: 15px;
-  padding: 20px;
 }
 
 #canvas {
@@ -145,48 +123,88 @@ basic-infusion-graph {
   height: 100%;
 }
 
-.MathParagraph {
-  text-align: left;
+#ControlsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 30%;
+  width: 100%;
+  padding: 0px;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
-.MathJax_Display {
-  text-align: left !important;
-}
-
-slider-container {
+#ControlsContainer .ControlPanelColumn {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 5px;
-  padding: 5px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 15px;
+}
+
+#ControlsContainer .ControlPanelColumn slider-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0px 5px;
   border-radius: 5px;
   background-color: #555;
-  min-width: 400px;
-  max-width: 600px;
-  max-height: 75px;
+  font-size: 10px;
+  margin-bottom: 15px;
 }
 
 slider-container .SliderMainLabel {
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+  white-space: nowrap;
+}
+
+slider-container .SliderMainLabel span {
+  white-space: nowrap;
 }
 
 slider-container .SliderValueContainer {
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+slider-container .SliderValueContainer p {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 2px;
+}
+
+slider-container .SliderValueContainer p span {
+  white-space: nowrap;
 }
 
 slider-container p {
   color: white;
+  white-space: nowrap;
 }
 
 .my-slider {
+  height: 100%;
   -webkit-appearance: none;
   appearance: none;
   background: #d3d3d3;
   border-radius: 5px;
   outline: none;
-  height: 15px;
 }
 
 .my-slider::-webkit-slider-thumb {
@@ -200,19 +218,35 @@ slider-container p {
 }
 
 checkbox-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: left;
-  margin: 5px;
-  padding: 10px;
+  margin-bottom: 15px;
+  padding: 5px;
   border-radius: 5px;
   background-color: #555;
   align-items: center;
-  max-height: 25px;
-  max-width: 300px;
   color: white;
 }
 
 checkbox-container input {
   margin-right: 10px;
+}
+
+#DescriptionContainer {
+  width: 100%;
+  size: 100%;
+  display: inline;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.MathParagraph {
+  text-align: left;
+}
+
+.MathJax_Display {
+  text-align: left !important;
 }
