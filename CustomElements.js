@@ -6,7 +6,7 @@ class SliderContainer extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
         <p class="SliderMainLabel"><span>The slider</span></p>
-        <input class="my-slider" name="weight" type="range" oninput="OnNewSliderValue()">
+        <span class="InputRangeContainer"><input class="my-slider" name="weight" type="range" oninput="OnNewSliderValue()"></span>
         <div class="SliderValueContainer">
           <p class="SliderMinLabel"><span>Min</span></p>
           <p class="SliderValueLabel"><span>Value</span></p>

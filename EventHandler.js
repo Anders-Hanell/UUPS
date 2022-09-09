@@ -1,5 +1,19 @@
 var NavigationIsVisible = true;
 
+function PageFinishedLoading() {
+  const contentContainer = document.getElementById('ContentContainer');
+
+  const allInputContainers = contentContainer.querySelectorAll('.InputRangeContainer');
+  for (let i = 0; i < allInputContainers.length; i++) {
+    let aContainer = allInputContainers[i];
+    let height = aContainer.clientHeight;
+
+    let aSlider = aContainer.querySelector('.my-slider');
+    aSlider.style.setProperty('--sliderSize', height + "px");
+    aSlider.style.height = height + "px";
+  }
+}
+
 function OnStartup() {
   let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
   let bodyWidth = screen.availWidth - (window.outerWidth - window.innerWidth);
