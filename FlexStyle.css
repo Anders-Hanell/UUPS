@@ -30,7 +30,17 @@ body {
     align-items: center;
     margin-bottom: 1vh;
     white-space: nowrap;
-    font-size: 500px;
+    font-size: 1px;
+}
+
+#logo {
+  width: 100%;
+}
+
+#LogoWrapper {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1vh;
 }
 
 .Container {
@@ -256,10 +266,22 @@ checkbox-container {
   background-color: #555;
   align-items: center;
   color: white;
+  font-size: 1px;
 }
 
 checkbox-container input {
   margin-right: 10px;
+}
+
+checkbox-container p {
+  width: 100%;
+  height: 100%;
+  font-size: 1px;
+  display: inline;
+  white-space: nowrap;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
 #DescriptionContainer {

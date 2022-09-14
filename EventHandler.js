@@ -1,29 +1,24 @@
 var NavigationIsVisible = true;
+var FullScreenIsActive = false;
 
 function PageFinishedLoading() {
-  const contentContainer = document.getElementById('ContentContainer');
-
-  const allInputContainers = contentContainer.querySelectorAll('.InputRangeContainer');
-  for (let i = 0; i < allInputContainers.length; i++) {
-    let aContainer = allInputContainers[i];
-    let height = aContainer.clientHeight;
-
-    let aSlider = aContainer.querySelector('.my-slider');
-    aSlider.style.setProperty('--sliderSize', height + "px");
-    aSlider.style.height = height + "px";
-  }
-}
-
-function OnStartup() {
   let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
   let bodyWidth = screen.availWidth - (window.outerWidth - window.innerWidth);
 
   document.body.style.height = bodyHeight + "px";
   document.body.style.width = bodyWidth + "px";
-
+  
   AdjustFontSize("MainTitlePanel", 0.95, 0.60);
   AdjustButtonTextSize();
+  
+  UpdateSliderSize();
   UpdateSliderFontSizes();
+
+  UpdateCheckboxFontSizes();
+
+  UpdateGraph();
+
+  document.addEventListener('fullscreenchange', FullScreenModeChanged, false);
 }
 
 function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {
@@ -58,6 +53,7 @@ function AdjustButtonTextSize() {
   AdjustFontSize("BothButton", 0.80, 0.60);
   AdjustFontSize("DescriptionButton", 0.80, 0.60);
   AdjustFontSize("ToggleNavigationButton", 0.80, 0.60);
+  AdjustFontSize("ToggleFullScreenButton", 0.80, 0.60);
 }
 
 function OnWindowResize() {
@@ -93,8 +89,6 @@ function ToggleNavigation() {
 }
 
 function HideNavigation() {
-  console.log("Attempting to hide the navigation!");
-  
   const titlePanel = document.getElementById("MainTitlePanel");
   titlePanel.style.display = "none";
 
@@ -118,6 +112,29 @@ function ShowNavigation() {
   sidebar.style.display = "flex";
 }
 
+function ToggleFullScreen() {
+  if (FullScreenIsActive) {
+    document.exitFullscreen();
+  } else {
+    document.body.requestFullscreen();
+  }
+}
+
+function FullScreenModeChanged() {
+  const toggleButton = document.getElementById("ToggleFullScreenButton");
+
+  if (document.fullscreenElement != null) {
+    toggleButton.textContent = "Leave full screen";
+    FullScreenIsActive = true;
+  } 
+  else {
+    toggleButton.textContent = "Display full screen";
+    FullScreenIsActive = false;
+  }
+
+  UpdateGraph();
+}
+
 var CurrentTab = "Both";
 
 function OnGraphButtonClick() {
@@ -138,6 +155,11 @@ function OnControlsButtonClick() {
   container.innerHTML = "<basic-infusion-controls></basic-infusion-controls>";
 
   container.firstChild.style.height = "100%";
+
+  UpdateSliderSize();
+  UpdateSliderFontSizes();
+  UpdateCheckboxFontSizes();
+  UpdateCheckboxSize();
 }
 
 function OnBothButtonClick() {
@@ -147,6 +169,9 @@ function OnBothButtonClick() {
   container.innerHTML = "<basic-infusion-both></basic-infusion-both>";
 
   UpdateGraph();
+  UpdateSliderSize();
+  UpdateSliderFontSizes();
+  UpdateCheckboxFontSizes();
 }
 
 function OnDescriptionButtonClick() {
@@ -174,5 +199,7 @@ function OnCheckboxChange() {
   checkbox = container.querySelector('input');
   BasicInfusion_DisplayHalflifeMarker = checkbox.checked;
 
-  UpdateGraph();
+  if (CurrentTab == "Both") {
+    UpdateGraph();
+  }
 }

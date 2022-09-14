@@ -25,12 +25,12 @@
           chtml: { displayAlign: 'left' }
       };
     </script>
-
-    
   </head>
+  
   <body onresize="OnWindowResize()" onload="PageFinishedLoading()"> 
     <div id="GridContainer">
       <div id="MainTitlePanel">
+        <!-- <img id="logo" src="uu-logo.svg" alt="UU logo"></img> -->
         <span id="MainTitleTextSpan">
           Uppsala University Pharmacokinetics Simulator
         </span> 
@@ -62,6 +62,10 @@
           <span>About</span>
         </div>
 
+        <a id="LogoWrapper" href="https://www.uu.se" target="_blank">
+          <img id="logo" src="uu-logo.svg" alt="UU logo"></img>
+        </a>
+
       </section>
 
       <tab-panel id="TabPanel" class="Container"></tab-panel>
@@ -70,10 +74,5 @@
         <basic-infusion-both></basic-infusion-both>
       </section>
     </div>
-
-    <script>
-      OnStartup();
-      UpdateGraph();
-    </script>
   </body>
 </html>

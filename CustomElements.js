@@ -25,7 +25,7 @@ class CheckboxContainer extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
         <input type="checkbox" oninput="OnCheckboxChange()" checked>
-        <p>The Checkbox</p>
+        <p><span>The Checkbox</span></p>
         `;
   }
 }
@@ -54,6 +54,10 @@ class TabPanel extends HTMLElement {
     
     <div class="ButtonContainer" id="ToggleNavigationButton" onclick="ToggleNavigation()">
       <span>Hide navigation</span>
+    </div>
+
+    <div class="ButtonContainer" id="ToggleFullScreenButton" onclick="ToggleFullScreen()">
+      <span>Display full screen</span>
     </div>
         `;
   }
