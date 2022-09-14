@@ -14,9 +14,6 @@ function UpdateGraph() {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
-  canvas.width = canvas.scrollWidth;
-  canvas.height = canvas.scrollHeight;
-
   const bolusDose = BasicInfusion_BolusDoseSliderValue * 1.0;
   const infusionRate = BasicInfusion_InfusionRateSliderValue * 1.0;
   const clearance = BasicInfusion_ClearanceSliderValue * 1.0;
@@ -28,29 +25,35 @@ function UpdateGraph() {
   var infSpeed = calculatedValues[2];
   var fiveHalfLifes = calculatedValues[3];
 
-  const axisLabelFont = '24px arial';
-  const axisLabelAlignment = "center";
-
-  const tickMarkLabelFont = '12px arial';
-  const tickMarkLabelAlignment = "right";
-
   const plasmaConcColor = "#428bca";
   const infRateColor = "#bd2b30";
   const elimRateColor = "#3f9762";
   const halfLifeMarkerColor = "#fd9228";
 
-  const axisWidth = 100;
+  canvas.width = canvas.scrollWidth;
+  canvas.height = canvas.scrollHeight;
+
+  const axisWidth = canvas.width * 0.06;
   const numRightHandYaxises = 2;
 
-  const tickSize = 10;
+  const tickSize = axisWidth * 0.1;
 
   const leftMargin = axisWidth;
   const rightMargin = axisWidth * numRightHandYaxises;
-  const bottomMargin = 50;
-  const upperMargin = 20;
+  const bottomMargin = canvas.width * 0.03;
+  const upperMargin = canvas.width * 0.01;
 
   const plotWidth = canvas.width - leftMargin - rightMargin;
   const plotHeight = canvas.height - bottomMargin - upperMargin;
+
+  const yAxisHeight = canvas.height - bottomMargin - upperMargin;
+
+  const canvasFonts = DetermineCanvasFont(ctx, yAxisHeight * 0.8, axisWidth * 0.5, "Plasma concentration (mg/ml)");
+  const axisLabelFont = canvasFonts[0];
+  const tickMarkLabelFont = canvasFonts[1];
+  
+  const axisLabelAlignment = "center";
+  const tickMarkLabelAlignment = "right";
 
   const plasmaConcAxisTickValues = new Array(0, 2500, 5000, 7500, 10000);
   var plasmaConcAxisTickPositions = new Array();
@@ -294,4 +297,19 @@ function UpdateGraph() {
     ctx.lineTo(leftMargin + halfLifeMarkerPosition, canvas.height - bottomMargin - plotHeight);
     ctx.stroke();
   }
+}
+
+function DetermineCanvasFont(canvasContext, availableWidth, availableHeight, longestString) {
+  canvasContext.font = '1px arial';
+  textMeasurements = canvasContext.measureText(longestString);
+  
+  fontHeight = textMeasurements.fontBoundingBoxAscent + textMeasurements.fontBoundingBoxDescent;
+  const fontSizeByHeight = availableHeight / fontHeight;
+
+  fontWidth = textMeasurements.width;
+  const fontSizeByWidth = availableWidth / fontWidth;
+
+  const fontSize = Math.min(fontSizeByWidth, fontSizeByHeight);
+
+  return new Array(fontSize + "px arial", fontSize/2 + "px arial");
 }
