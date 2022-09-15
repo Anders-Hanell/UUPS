@@ -57,7 +57,21 @@ function AdjustButtonTextSize() {
 }
 
 function OnWindowResize() {
-  
+  if (CurrentModeIsFullScreen() != FullScreenIsActive) {
+    FullScreenModeChanged();
+  }
+}
+
+function CurrentModeIsFullScreen() {
+  if (document.fullscreenElement != null) {
+    return true;
+  }
+
+  if (screen.width - window.outerWidth <= 16 && screen.height - window.outerHeight <= 16) {
+    return true;
+  }
+
+  return false;
 }
 
 function OnSidebarButtonClick(buttonId) {
@@ -114,16 +128,32 @@ function ShowNavigation() {
 
 function ToggleFullScreen() {
   if (FullScreenIsActive) {
-    document.exitFullscreen();
+    if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
   } else {
-    document.body.requestFullscreen();
+    if (document.body.requestFullscreen) {
+      document.body.requestFullscreen().catch((err) => {
+        alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+      });
+    } else if (document.body.webkitRequestFullscreen) {
+      document.body.webkitRequestFullscreen();
+    } else if (document.body.msRequestFullscreen) {
+      document.body.msRequestFullscreen();
+    }
   }
 }
 
 function FullScreenModeChanged() {
   const toggleButton = document.getElementById("ToggleFullScreenButton");
 
-  if (document.fullscreenElement != null) {
+  if (CurrentModeIsFullScreen()) {
     toggleButton.textContent = "Leave full screen";
     FullScreenIsActive = true;
   } 
