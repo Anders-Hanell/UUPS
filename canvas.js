@@ -16,14 +16,15 @@ function UpdateGraph() {
 
   const bolusDose = BasicInfusion_BolusDoseSliderValue * 1.0;
   const infusionRate = BasicInfusion_InfusionRateSliderValue * 1.0;
-  const clearance = BasicInfusion_HalflifeSliderValue * 1.0;
+  const halflife = BasicInfusion_HalflifeSliderValue * 1.0;
   const infusionTime = BasicInfusion_InfusionTimeSliderValue * 1.0;
 
-  var calculatedValues = BasicInfusion_CalculateValues(bolusDose, infusionRate, clearance, infusionTime);
+  var calculatedValues = BasicInfusion_CalculateValues(bolusDose, infusionRate, halflife, infusionTime);
   var plasmaConc = calculatedValues[0];
   var elimRate = calculatedValues[1];
   var infSpeed = calculatedValues[2];
   var fiveHalfLifes = calculatedValues[3];
+  var clearanceLevels = calculatedValues[4];
 
   const plasmaConcColor = "#428bca";
   const infRateColor = "#bd2b30";
@@ -34,7 +35,7 @@ function UpdateGraph() {
   canvas.height = canvas.scrollHeight;
 
   const axisWidth = canvas.width * 0.06;
-  const numRightHandYaxises = 2;
+  const numRightHandYaxises = 3;
 
   const tickSize = axisWidth * 0.1;
 
@@ -75,6 +76,12 @@ function UpdateGraph() {
 
   const elimAxisTickValues = infusionAxisTickValues;
   const elimAxisTickPositions = infusionAxisTickPositions;
+
+  const clearanceAxisTickValues = new Array(0, 1, 2, 3, 4, 5);
+  var clearanceAxisTickPositions = new Array();
+  for (let i = 0; i < clearanceAxisTickValues.length; i++) {
+    clearanceAxisTickPositions.push(clearanceAxisTickValues[i] / 5 * plotHeight);
+  }
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
@@ -285,6 +292,55 @@ function UpdateGraph() {
     ctx.stroke();
 
     ctx.fillText(tickMarkLabel, canvas.width - rightMargin + 10 + axisWidth + tickSize + 5, canvas.height - bottomMargin - tickMarkYpos);
+  }
+
+  // Clearance
+  ctx.strokeStyle = "white";
+  ctx.fillStyle = "white";
+  
+  const cleranceYPos = clearanceLevels[0] / 5 * plotHeight;
+
+  if (BasicInfusion_DisplayClearance) {
+    ctx.beginPath();
+    ctx.moveTo(leftMargin, canvas.height - bottomMargin - cleranceYPos);
+    ctx.lineTo(leftMargin + plotWidth, canvas.height - bottomMargin - cleranceYPos);
+    ctx.stroke();
+  }
+
+  // Clearance y-axis
+  ctx.beginPath();
+  ctx.moveTo(leftMargin + plotWidth + 2 * axisWidth + 10, canvas.height - bottomMargin + lineWidth/2);
+  ctx.lineTo(leftMargin + plotWidth + 2 * axisWidth + 10, upperMargin);
+  ctx.stroke();
+
+  // Clearance label
+  ctx.font = axisLabelFont;
+  ctx.textAlign = axisLabelAlignment;
+  const clearanceLabel = "Clearance (ml/min)";
+
+  x = leftMargin + plotWidth + 2 * axisWidth + axisWidth / 2 + 10;
+  y = canvas.height - bottomMargin - plotHeight / 2;
+  
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText(clearanceLabel, 0, 0);
+  ctx.restore();
+
+  // Clearance axis tick marks
+  ctx.font = tickMarkLabelFont;
+  ctx.textAlign = "left";
+
+  for (let i = 0; i < clearanceAxisTickPositions.length; i++) {
+    let tickMarkYpos = clearanceAxisTickPositions[i];
+    let tickMarkLabel = clearanceAxisTickValues[i];
+
+    ctx.beginPath();
+    ctx.moveTo(canvas.width - rightMargin + 10 + 2 * axisWidth, canvas.height - bottomMargin - tickMarkYpos);
+    ctx.lineTo(canvas.width - rightMargin + 10 + 2 * axisWidth + tickSize, canvas.height - bottomMargin - tickMarkYpos);
+    ctx.stroke();
+
+    ctx.fillText(tickMarkLabel, canvas.width - rightMargin + 10 + 2 * axisWidth + tickSize + 5, canvas.height - bottomMargin - tickMarkYpos);
   }
 
   // Five half lifes

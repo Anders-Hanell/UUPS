@@ -65,11 +65,11 @@ function ConfigureBasicInfusion_HalflifeSlider() {
   const maxLabelSpan = maxLabel.querySelector('span');
 
   mainLabelSpan.innerText = "Halflife (min)";
-  minLabelSpan.innerText = "0";
+  minLabelSpan.innerText = "10";
   valueLabelSpan.innerText = BasicInfusion_HalflifeSliderValue;
   maxLabelSpan.innerText = "200";
 
-  slider.min = "0";
+  slider.min = "10";
   slider.max = "200";
   slider.step = "1";
   slider.value = BasicInfusion_HalflifeSliderValue

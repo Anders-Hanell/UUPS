@@ -229,6 +229,10 @@ function OnCheckboxChange() {
   checkbox = container.querySelector('input');
   BasicInfusion_DisplayHalflifeMarker = checkbox.checked;
 
+  container = document.getElementById("BasicInfusion_DisplayClearanceCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayClearance = checkbox.checked;
+
   if (CurrentTab == "Both") {
     UpdateGraph();
   }

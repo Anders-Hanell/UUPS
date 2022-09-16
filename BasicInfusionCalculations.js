@@ -4,15 +4,24 @@ function BasicInfusion_CalculateValues(bolusDose, infusionRate, halflife, infusi
 
   var fiveHalfLifes = 5 * halflife;
   var clearance = Vd * Math.log(2) / halflife;
+  const initialConcentration = bolusDose / Vd;
+  const initialElimRate = clearance / Vd * initialConcentration;
 
   var plasmaConc = [];
-  plasmaConc.push(bolusDose);
+  plasmaConc.push(initialConcentration);
   
   var elimRate = [];
-  elimRate.push(clearance * bolusDose);
+  elimRate.push(initialElimRate);
+
+  var clearanceLevel = [];
+  for (i = 0; i < numTimepoints; i++) {
+    clearanceLevel.push(clearance);
+  }
 
   var infusionSpeed = [];
   for (i = 0; i < numTimepoints; i++) {
+    clearanceLevel.push(clearance);
+    
     if (i < infusionTime) {
       infusionSpeed.push(infusionRate);
     }
@@ -33,5 +42,5 @@ function BasicInfusion_CalculateValues(bolusDose, infusionRate, halflife, infusi
     prevConc = currentConc;
   }
   
-  return new Array(plasmaConc, elimRate, infusionSpeed, fiveHalfLifes);
+  return new Array(plasmaConc, elimRate, infusionSpeed, fiveHalfLifes, clearanceLevel);
 }
