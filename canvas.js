@@ -16,7 +16,7 @@ function UpdateGraph() {
 
   const bolusDose = BasicInfusion_BolusDoseSliderValue * 1.0;
   const infusionRate = BasicInfusion_InfusionRateSliderValue * 1.0;
-  const clearance = BasicInfusion_ClearanceSliderValue * 1.0;
+  const clearance = BasicInfusion_HalflifeSliderValue * 1.0;
   const infusionTime = BasicInfusion_InfusionTimeSliderValue * 1.0;
 
   var calculatedValues = BasicInfusion_CalculateValues(bolusDose, infusionRate, clearance, infusionTime);

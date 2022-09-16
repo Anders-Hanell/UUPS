@@ -10,7 +10,7 @@ class BasicInfusion_Controls extends HTMLElement {
       <slider-container id="BasicInfusion_InfusionRateSlider"></slider-container>
     </div>
     <div class="ControlPanelColumn">
-      <slider-container id="BasicInfusion_ClearanceSlider"></slider-container>
+      <slider-container id="BasicInfusion_HalflifeSlider"></slider-container>
       <slider-container id="BasicInfusion_InfusionTimeSlider"></slider-container>
     </div>
     <div class="ControlPanelColumn">
@@ -23,7 +23,7 @@ class BasicInfusion_Controls extends HTMLElement {
 
     ConfigureBasicInfusion_BolusDoseSlider();
     ConfigureBasicInfusion_InfusionRateSlider();
-    ConfigureBasicInfusion_ClearanceSlider();
+    ConfigureBasicInfusion_HalflifeSlider();
     ConfigureBasicInfusion_InfusionTimeSlider();
 
     ConfigureBasicInfusion_DisplayPlasmaConcentrationCheckbox();
