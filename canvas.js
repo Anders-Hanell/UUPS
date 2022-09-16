@@ -6,7 +6,7 @@ function OnNewSliderValue() {
   }
 }
 
-function OnCanvasResize(){
+function OnCanvasResize() {
   UpdateGraph();
 }
 
@@ -49,6 +49,14 @@ function UpdateGraph() {
 
   const yAxisHeight = canvas.height - bottomMargin - upperMargin;
 
+  let plotRegionMargin = new Margin(20, 20, 0, 20);
+  const plotRegion = new DrawRegion(
+    canvas.height - bottomMargin - plotRegionMargin.bottom,
+    leftMargin + plotRegionMargin.left,
+    upperMargin + plotRegionMargin.top,
+    canvas.width - rightMargin - plotRegionMargin.right
+  )
+
   const canvasFonts = DetermineCanvasFont(ctx, yAxisHeight * 0.8, axisWidth * 0.5, "Plasma concentration (mg/ml)");
   const axisLabelFont = canvasFonts[0];
   const tickMarkLabelFont = canvasFonts[1];
@@ -85,22 +93,22 @@ function UpdateGraph() {
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
-    yPos.push(plasmaConc[i] * plotHeight / 10000.0);
+    yPos.push(plasmaConc[i] * plotRegion.height / 10000.0);
   }
-  
+
   var elimYpos = [];
   for (let i = 0; i < 1000; i++) {
-    elimYpos.push(elimRate[i] * plotHeight / 100.0);
+    elimYpos.push(elimRate[i] * plotRegion.height / 100.0);
   }
 
   var infYpos = [];
   for (let i = 0; i < 1000; i++) {
-    infYpos.push(infSpeed[i] * plotHeight / 100.0);
+    infYpos.push(infSpeed[i] * plotRegion.height / 100.0);
   }
 
   var timeValues = [];
   for (let i = 0.0; i < 1000.0; i++) {
-    timeValues.push(i * plotWidth / 1000.0);
+    timeValues.push(i * plotRegion.width / 1000.0);
   }
 
   var halfLifeMarkerPosition = plotWidth * fiveHalfLifes / 1000;
@@ -183,15 +191,15 @@ function UpdateGraph() {
   // Plasma concentration
   if (BasicInfusion_DisplayPlasmaConcentration) {
     ctx.beginPath();
-    ctx.moveTo(leftMargin, canvas.height - bottomMargin);
+    ctx.moveTo(plotRegion.left, plotRegion.bottom);
     for (let i = 0; i < 1000; i++) {
-      if (yPos[i] <= plotHeight){
-        ctx.lineTo(leftMargin + timeValues[i], canvas.height - bottomMargin - yPos[i]);
+      if (yPos[i] <= plotRegion.height){
+        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - yPos[i]);
       }
     }
     ctx.stroke();
   }
-  
+
   // Infusion rate y-axis
   ctx.strokeStyle = infRateColor;
   ctx.fillStyle = infRateColor;
@@ -234,10 +242,10 @@ function UpdateGraph() {
   // Infusion rate
   if (BasicInfusion_DisplayInfusionRate) {
     ctx.beginPath();
-    ctx.moveTo(leftMargin, canvas.height - bottomMargin);
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - infYpos[0]);
     for (let i = 0; i < 1000; i++) {
-      if (infYpos[i] <= plotHeight){
-        ctx.lineTo(leftMargin + timeValues[i], canvas.height - bottomMargin - infYpos[i]);
+      if (infYpos[i] <= plotRegion.height){
+        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - infYpos[i]);
       }
     }
     ctx.stroke();
@@ -249,10 +257,10 @@ function UpdateGraph() {
 
   if (BasicInfusion_DisplayEliminationRate) {
     ctx.beginPath();
-    ctx.moveTo(leftMargin, canvas.height - bottomMargin);
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - elimYpos[0]);
     for (let i = 0; i < 1000; i++) {
-      if (elimYpos[i] <= plotHeight){
-        ctx.lineTo(leftMargin + timeValues[i], canvas.height - bottomMargin - elimYpos[i]);
+      if (elimYpos[i] <= plotRegion.height) {
+        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - elimYpos[i]);
       }
     }
     ctx.stroke();
@@ -298,12 +306,12 @@ function UpdateGraph() {
   ctx.strokeStyle = "white";
   ctx.fillStyle = "white";
   
-  const cleranceYPos = clearanceLevels[0] / 5 * plotHeight;
+  const cleranceYPos = clearanceLevels[0] / 5 * plotRegion.height;
 
   if (BasicInfusion_DisplayClearance) {
     ctx.beginPath();
-    ctx.moveTo(leftMargin, canvas.height - bottomMargin - cleranceYPos);
-    ctx.lineTo(leftMargin + plotWidth, canvas.height - bottomMargin - cleranceYPos);
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - cleranceYPos);
+    ctx.lineTo(plotRegion.right, plotRegion.bottom - cleranceYPos);
     ctx.stroke();
   }
 
@@ -349,8 +357,8 @@ function UpdateGraph() {
 
   if (BasicInfusion_DisplayHalflifeMarker) {
     ctx.beginPath();
-    ctx.moveTo(leftMargin + halfLifeMarkerPosition, canvas.height - bottomMargin);
-    ctx.lineTo(leftMargin + halfLifeMarkerPosition, canvas.height - bottomMargin - plotHeight);
+    ctx.moveTo(plotRegion.left + halfLifeMarkerPosition, plotRegion.bottom);
+    ctx.lineTo(plotRegion.left + halfLifeMarkerPosition, plotRegion.top);
     ctx.stroke();
   }
 }
