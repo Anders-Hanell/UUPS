@@ -56,3 +56,11 @@ class Padding {
     this.right = right;
   }
 }
+
+class LeftYAxis {
+  constructor(axisLabel, tickLabels, tickPositions) {
+    this.axisLabel = axisLabel;
+    this.tickLabels = tickLabels;
+    this.tickPositions = tickPositions;
+  }
+}
