@@ -70,13 +70,8 @@ function UpdateGraph() {
 
   const yAxisHeight = canvas.height - bottomMargin - upperMargin;
 
-<<<<<<< HEAD
-  let plotRegionMargin = new Margin(20, 20, 0, 20);
-  
-=======
   
 
->>>>>>> ff2b0ef67a9d106cb3443c2938e20f5298f4a39a
   const plotRegion = new DrawRegion(
     canvas.height - bottomMargin - plotRegionMargin.bottom,
     leftMargin + plotRegionMargin.left,
