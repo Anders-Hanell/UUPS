@@ -34,10 +34,31 @@ function UpdateGraph() {
   canvas.width = canvas.scrollWidth;
   canvas.height = canvas.scrollHeight;
 
+  let canvasPadding = new Padding(10, 10, 10, 10);
+
+  const graphRegion = new DrawRegion(
+    canvas.height - canvasPadding.bottom,
+    canvasPadding.left,
+    canvasPadding.top,
+    canvas.width - canvasPadding.right
+  )
+
   const axisWidth = canvas.width * 0.06;
+  const yAxisWidth = axisWidth;
+  const xAxisHeight = yAxisWidth;
+
   const numRightHandYaxises = 3;
 
   const tickSize = axisWidth * 0.1;
+
+  let plotRegionMargin = new Margin(20, 20, 0, 20);
+
+  const leftYAxisRegion = new DrawRegion(
+    graphRegion.bottom - xAxisHeight - plotRegionMargin.bottom,
+    graphRegion.left,
+    graphRegion.top + plotRegionMargin.top,
+    graphRegion.left + yAxisWidth
+  )
 
   const leftMargin = axisWidth;
   const rightMargin = axisWidth * numRightHandYaxises;
@@ -49,8 +70,13 @@ function UpdateGraph() {
 
   const yAxisHeight = canvas.height - bottomMargin - upperMargin;
 
+<<<<<<< HEAD
   let plotRegionMargin = new Margin(20, 20, 0, 20);
   
+=======
+  
+
+>>>>>>> ff2b0ef67a9d106cb3443c2938e20f5298f4a39a
   const plotRegion = new DrawRegion(
     canvas.height - bottomMargin - plotRegionMargin.bottom,
     leftMargin + plotRegionMargin.left,

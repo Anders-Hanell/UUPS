@@ -47,3 +47,12 @@ class Margin {
     this.right = right;
   }
 }
+
+class Padding {
+  constructor(bottom, left, top, right) {
+    this.bottom = bottom;
+    this.left = left;
+    this.top = top;
+    this.right = right;
+  }
+}
