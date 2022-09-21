@@ -57,10 +57,65 @@ class Padding {
   }
 }
 
+class DrawSettings {
+  constructor(axisLabelFont, tickLabelFont, axisLineWidth) {
+    this.axisLabelFont = axisLabelFont;
+    this.tickLabelFont = tickLabelFont;
+    this.axisLineWidth = axisLineWidth;
+  }
+}
+
 class LeftYAxis {
-  constructor(axisLabel, tickLabels, tickPositions) {
+  constructor(axisLabel, tickLabels, tickPositions, axisColor) {
     this.axisLabel = axisLabel;
     this.tickLabels = tickLabels;
     this.tickPositions = tickPositions;
+    this.axisColor = axisColor;
+  }
+
+  drawAxis = function(ctx, drawRegion, drawSettings, tickSize) {
+    const lineWidth = drawSettings.axisLineWidth;
+    
+    ctx.strokeStyle = this.axisColor;
+    ctx.fillStyle = this.axisColor;
+
+    // Axis
+    ctx.beginPath();
+    ctx.moveTo(drawRegion.right, drawRegion.bottom + lineWidth/2);
+    ctx.lineTo(drawRegion.right, drawRegion.top - lineWidth/2);
+    ctx.stroke();
+
+    // Tick marks
+    ctx.font = drawSettings.tickLabelFont;
+    ctx.textAlign = "right";
+
+    for (let i = 0; i < this.tickPositions.length; i++) {
+      let tickMarkYpos = this.tickPositions[i];
+      let tickMarkLabel = this.tickLabels[i];
+
+      console.log(tickMarkYpos);
+
+      ctx.beginPath();
+      ctx.moveTo(drawRegion.right - tickSize, drawRegion.bottom - tickMarkYpos);
+      ctx.lineTo(drawRegion.right, drawRegion.bottom - tickMarkYpos);
+      ctx.stroke();
+
+      ctx.fillText(tickMarkLabel, drawRegion.right - tickSize - 5, drawRegion.bottom - tickMarkYpos);
+    }
+
+    // Axis label
+    ctx.font = drawSettings.axisLabelFont;
+    ctx.textAlign = "center";
+    
+    const yLabel = this.axisLabel;
+
+    var x = drawRegion.left + drawRegion.width / 5;
+    var y = drawRegion.center.y;
+  
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText(yLabel, 0, 0);
+    ctx.restore();
   }
 }

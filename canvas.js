@@ -53,13 +53,6 @@ function UpdateGraph() {
 
   let plotRegionMargin = new Margin(20, 20, 0, 20);
 
-  const leftYAxisRegion = new DrawRegion(
-    graphRegion.bottom - xAxisHeight - plotRegionMargin.bottom,
-    graphRegion.left,
-    graphRegion.top + plotRegionMargin.top,
-    graphRegion.left + yAxisWidth
-  )
-
   const leftMargin = axisWidth;
   const rightMargin = axisWidth * numRightHandYaxises;
   const bottomMargin = canvas.width * 0.03;
@@ -70,8 +63,6 @@ function UpdateGraph() {
 
   const yAxisHeight = canvas.height - bottomMargin - upperMargin;
 
-  
-
   const plotRegion = new DrawRegion(
     canvas.height - bottomMargin - plotRegionMargin.bottom,
     leftMargin + plotRegionMargin.left,
@@ -79,18 +70,29 @@ function UpdateGraph() {
     canvas.width - rightMargin - plotRegionMargin.right
   )
 
+  const leftYAxisRegion = new DrawRegion(
+    plotRegion.bottom,
+    graphRegion.left,
+    plotRegion.top,
+    graphRegion.left + yAxisWidth
+  )
+
   const canvasFonts = DetermineCanvasFont(ctx, yAxisHeight * 0.8, axisWidth * 0.5, "Plasma concentration (mg/ml)");
   const axisLabelFont = canvasFonts[0];
   const tickMarkLabelFont = canvasFonts[1];
   
+  const drawSettings = new DrawSettings(axisLabelFont, tickMarkLabelFont, 2);
+
   const axisLabelAlignment = "center";
   const tickMarkLabelAlignment = "right";
 
   const plasmaConcAxisTickValues = new Array(0, 2500, 5000, 7500, 10000);
   var plasmaConcAxisTickPositions = new Array();
   for (let i = 0; i < plasmaConcAxisTickValues.length; i++) {
-    plasmaConcAxisTickPositions.push(plasmaConcAxisTickValues[i] / 10000 * plotHeight);
+    plasmaConcAxisTickPositions.push(plasmaConcAxisTickValues[i] / 10000 * leftYAxisRegion.height);
   }
+
+  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", plasmaConcAxisTickValues, plasmaConcAxisTickPositions, plasmaConcColor);
 
   const timeAxisTickValues = new Array(0, 250, 500, 750, 1000);
   var timeAxisTickPositions = new Array();
@@ -171,44 +173,7 @@ function UpdateGraph() {
     ctx.fillText(tickMarkLabel, tickMarkXpos, canvas.height - bottomMargin + tickSize + 10);
   }
 
-  // y-axis
-  ctx.strokeStyle = plasmaConcColor;
-  ctx.fillStyle = plasmaConcColor;
-  
-  ctx.beginPath();
-  ctx.moveTo(leftMargin, canvas.height - bottomMargin + lineWidth/2);
-  ctx.lineTo(leftMargin, upperMargin - lineWidth/2);
-  ctx.stroke();
-
-  // y-axis tick marks
-  ctx.font = tickMarkLabelFont;
-  ctx.textAlign = tickMarkLabelAlignment;
-
-  for (let i = 0; i < plasmaConcAxisTickPositions.length; i++) {
-    let tickMarkYpos = plasmaConcAxisTickPositions[i];
-    let tickMarkLabel = plasmaConcAxisTickValues[i];
-
-    ctx.beginPath();
-    ctx.moveTo(leftMargin - tickSize, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.lineTo(leftMargin, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.stroke();
-
-    ctx.fillText(tickMarkLabel, leftMargin - tickSize - 5, canvas.height - bottomMargin - tickMarkYpos);
-  }
-
-  // y-axis label
-  ctx.font = axisLabelFont;
-  ctx.textAlign = axisLabelAlignment;
-  const yLabel = "Plasma concentration (mg/ml)";
-
-  var x = leftMargin / 5;
-  var y = canvas.height - bottomMargin - plotHeight / 2;
-  
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText(yLabel, 0, 0);
-  ctx.restore();
+  leftYxis.drawAxis(ctx, leftYAxisRegion, drawSettings, tickSize);
 
   // Plasma concentration
   if (BasicInfusion_DisplayPlasmaConcentration) {
