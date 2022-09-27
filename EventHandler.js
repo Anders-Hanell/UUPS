@@ -233,6 +233,10 @@ function OnCheckboxChange() {
   checkbox = container.querySelector('input');
   BasicInfusion_DisplayClearance = checkbox.checked;
 
+  container = document.getElementById("BasicInfusion_DisplayTherapeuticWindowCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayTherapeuticWindow = checkbox.checked;
+
   if (CurrentTab == "Both") {
     UpdateGraph();
   }

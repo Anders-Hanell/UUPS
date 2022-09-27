@@ -3,6 +3,7 @@ var BasicInfusion_DisplayInfusionRate = false;
 var BasicInfusion_DisplayEliminationRate = false;
 var BasicInfusion_DisplayHalflifeMarker = false;
 var BasicInfusion_DisplayClearance = false;
+var BasicInfusion_DisplayTherapeuticWindow = false;
 
 function ConfigureBasicInfusion_DisplayPlasmaConcentrationCheckbox() {
   const container = document.getElementById('BasicInfusion_DisplayPlasmaConcentrationCheckbox');
@@ -47,6 +48,15 @@ function ConfigureBasicInfusion_DisplayClearanceCheckbox() {
 
   label.textContent = "Display clearance level";
   checkbox.checked = BasicInfusion_DisplayClearance;
+}
+
+function ConfigureBasicInfusion_DisplayTherapeuticWindowCheckbox() {
+  const container = document.getElementById('BasicInfusion_DisplayTherapeuticWindowCheckbox');
+  const checkbox = container.querySelector('input');
+  const label = container.querySelector('span');
+
+  label.textContent = "Display therapeutic window";
+  checkbox.checked = BasicInfusion_DisplayTherapeuticWindow;
 }
 
 function UpdateCheckboxFontSizes() {

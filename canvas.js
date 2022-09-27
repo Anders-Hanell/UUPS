@@ -26,6 +26,11 @@ function UpdateGraph() {
   var fiveHalfLifes = calculatedValues[3];
   var clearanceLevels = calculatedValues[4];
 
+  let theraLowerConc = 6000;
+  let theraUpperConc = 8000;
+  let theraLowerPosition = theraLowerConc / 10000;
+  let theraUpperPosition = theraUpperConc / 10000;
+
   const plasmaConcColor = "#428bca";
   const infRateColor = "#bd2b30";
   const elimRateColor = "#3f9762";
@@ -175,8 +180,27 @@ function UpdateGraph() {
 
   leftYxis.drawAxis(ctx, leftYAxisRegion, drawSettings, tickSize);
 
+  // Therapeutic Window
+  if (BasicInfusion_DisplayTherapeuticWindow) {
+    ctx.strokeStyle = halfLifeMarkerColor;
+    ctx.fillStyle = halfLifeMarkerColor;
+    
+    ctx.beginPath();
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - theraLowerPosition * plotRegion.height);
+    ctx.lineTo(plotRegion.right, plotRegion.bottom - theraLowerPosition * plotRegion.height);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - theraUpperPosition * plotRegion.height);
+    ctx.lineTo(plotRegion.right, plotRegion.bottom - theraUpperPosition * plotRegion.height);
+    ctx.stroke();
+  }
+
   // Plasma concentration
   if (BasicInfusion_DisplayPlasmaConcentration) {
+    ctx.strokeStyle = plasmaConcColor;
+    ctx.fillStyle = plasmaConcColor;
+    
     ctx.beginPath();
     ctx.moveTo(plotRegion.left, plotRegion.bottom);
     for (let i = 0; i < 1000; i++) {

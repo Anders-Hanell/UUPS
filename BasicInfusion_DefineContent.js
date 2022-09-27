@@ -17,8 +17,11 @@ class BasicInfusion_Controls extends HTMLElement {
       <checkbox-container id = "BasicInfusion_DisplayPlasmaConcentrationCheckbox"></checkbox-container>
       <checkbox-container id = "BasicInfusion_DisplayInfusionRateCheckbox"></checkbox-container>
       <checkbox-container id = "BasicInfusion_DisplayEliminationRateCheckbox"></checkbox-container>
+    </div>
+    <div class="ControlPanelColumn">
       <checkbox-container id = "BasicInfusion_DisplayHalflifeMarkerCheckbox"></checkbox-container>
       <checkbox-container id = "BasicInfusion_DisplayClearanceCheckbox"></checkbox-container>
+      <checkbox-container id = "BasicInfusion_DisplayTherapeuticWindowCheckbox"></checkbox-container>
     </div>
     `;
 
@@ -30,8 +33,10 @@ class BasicInfusion_Controls extends HTMLElement {
     ConfigureBasicInfusion_DisplayPlasmaConcentrationCheckbox();
     ConfigureBasicInfusion_DisplayInfusionRateCheckbox();
     ConfigureBasicInfusion_DisplayEliminationRateCheckbox();
+    
     ConfigureBasicInfusion_DisplayHalflifeMarkerCheckbox();
     ConfigureBasicInfusion_DisplayClearanceCheckbox();
+    ConfigureBasicInfusion_DisplayTherapeuticWindowCheckbox();
   }
 }
 customElements.define('basic-infusion-controls', BasicInfusion_Controls);
