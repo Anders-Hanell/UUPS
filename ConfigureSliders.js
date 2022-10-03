@@ -1,6 +1,6 @@
-var BasicInfusion_BolusDoseSliderValue = 1000;
-var BasicInfusion_InfusionRateSliderValue = 50;
-var BasicInfusion_HalflifeSliderValue = 50;
+var BasicInfusion_BolusDoseSliderValue = 0;
+var BasicInfusion_InfusionRateSliderValue = 75;
+var BasicInfusion_HalflifeSliderValue = 65;
 var BasicInfusion_InfusionTimeSliderValue = 750;
 
 function ConfigureBasicInfusion_BolusDoseSlider() {

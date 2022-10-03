@@ -3,7 +3,7 @@ var BasicInfusion_DisplayInfusionRate = false;
 var BasicInfusion_DisplayEliminationRate = false;
 var BasicInfusion_DisplayHalflifeMarker = false;
 var BasicInfusion_DisplayClearance = false;
-var BasicInfusion_DisplayTherapeuticWindow = false;
+var BasicInfusion_DisplayTherapeuticWindow = true;
 
 function ConfigureBasicInfusion_DisplayPlasmaConcentrationCheckbox() {
   const container = document.getElementById('BasicInfusion_DisplayPlasmaConcentrationCheckbox');
