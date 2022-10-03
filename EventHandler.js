@@ -42,10 +42,6 @@ function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {
 
 function AdjustButtonTextSize() {
   AdjustFontSize("ConstantInfusionButton", 0.80, 0.60);
-  AdjustFontSize("OralAdministrationButton", 0.80, 0.60);
-  AdjustFontSize("DepotTabletsButton", 0.80, 0.60);
-  AdjustFontSize("ZeroOrderButton", 0.80, 0.60);
-  AdjustFontSize("IonTrappingButton", 0.80, 0.60);
   AdjustFontSize("AboutButton", 0.80, 0.60);
 
   AdjustFontSize("GraphButton", 0.80, 0.60);
@@ -79,6 +75,14 @@ function OnSidebarButtonClick(buttonId) {
   
   if (buttonId == "ConstantInfusionButton") {
     conentContainer.innerHTML = "<basic-infusion-both></basic-infusion-both>";
+    
+    AdjustButtonTextSize();
+  
+    UpdateSliderSize();
+    UpdateSliderFontSizes();
+
+    UpdateCheckboxFontSizes();
+    
     UpdateGraph();
   }
 
