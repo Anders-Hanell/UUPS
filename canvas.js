@@ -51,6 +51,7 @@ function UpdateGraph() {
   const axisWidth = canvas.width * 0.06;
   const yAxisWidth = axisWidth;
   const xAxisHeight = yAxisWidth * 0.6;
+  const rightSideAxisSpacing = yAxisWidth * 0.1;
 
   const numRightHandYaxises = 3;
 
@@ -72,7 +73,7 @@ function UpdateGraph() {
     graphRegion.bottom - xAxisHeight - plotRegionMargin.bottom,
     graphRegion.left + yAxisWidth + plotRegionMargin.left,
     graphRegion.top + plotRegionMargin.top,
-    graphRegion.right - numRightHandYaxises * yAxisWidth - plotRegionMargin.right
+    graphRegion.right - numRightHandYaxises * yAxisWidth - (numRightHandYaxises - 1) * rightSideAxisSpacing - plotRegionMargin.right
   )
 
   const leftYAxisRegion = new DrawRegion(
@@ -87,6 +88,34 @@ function UpdateGraph() {
     plotRegion.left,
     graphRegion.bottom - xAxisHeight,
     plotRegion.right
+  )
+
+  const rightSideAxisRegion = new DrawRegion(
+    plotRegion.bottom,
+    plotRegion.right + plotRegionMargin.right,
+    plotRegion.top,
+    graphRegion.right
+  )
+
+  const infusionAxisRegion = new DrawRegion(
+    rightSideAxisRegion.bottom,
+    rightSideAxisRegion.left,
+    rightSideAxisRegion.top,
+    rightSideAxisRegion.left + yAxisWidth
+  )
+
+  const eliminationAxisRegion = new DrawRegion(
+    rightSideAxisRegion.bottom,
+    rightSideAxisRegion.left + yAxisWidth + rightSideAxisSpacing,
+    rightSideAxisRegion.top,
+    rightSideAxisRegion.left + 2 * yAxisWidth + rightSideAxisSpacing
+  )
+
+  const clearanceAxisRegion = new DrawRegion(
+    rightSideAxisRegion.bottom,
+    rightSideAxisRegion.left + 2 * yAxisWidth + 2 * rightSideAxisSpacing,
+    rightSideAxisRegion.top,
+    rightSideAxisRegion.left + 3 * yAxisWidth + 2 * rightSideAxisSpacing
   )
 
   const canvasFonts = DetermineCanvasFont(ctx, yAxisHeight * 0.8, axisWidth * 0.5, "Plasma concentration (mg/ml)");
@@ -117,17 +146,23 @@ function UpdateGraph() {
   const infusionAxisTickValues = new Array(0, 25, 50, 75, 100);
   var infusionAxisTickPositions = new Array();
   for (let i = 0; i < infusionAxisTickValues.length; i++) {
-    infusionAxisTickPositions.push(infusionAxisTickValues[i] / 100 * plotHeight);
+    infusionAxisTickPositions.push(infusionAxisTickValues[i] / 100 * plotRegion.height);
   }
+
+  const infusionAxis = new RightYAxis("Infusion rate (mg/min)", infusionAxisTickValues, infusionAxisTickPositions, infRateColor);
 
   const elimAxisTickValues = infusionAxisTickValues;
   const elimAxisTickPositions = infusionAxisTickPositions;
 
+  const eliminationAxis = new RightYAxis("Elimination rate (mg/min)", elimAxisTickValues, elimAxisTickPositions, elimRateColor);
+
   const clearanceAxisTickValues = new Array(0, 1, 2, 3, 4, 5);
   var clearanceAxisTickPositions = new Array();
   for (let i = 0; i < clearanceAxisTickValues.length; i++) {
-    clearanceAxisTickPositions.push(clearanceAxisTickValues[i] / 5 * plotHeight);
+    clearanceAxisTickPositions.push(clearanceAxisTickValues[i] / 5 * plotRegion.height);
   }
+
+  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisTickValues, clearanceAxisTickPositions, "white");
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
@@ -160,9 +195,9 @@ function UpdateGraph() {
   ctx.lineWidth = lineWidth;
 
   // x-axis
-  
   xAxis.drawAxis(ctx, xAxisRegion, drawSettings, tickSize);
   
+  // y-axis
   leftYxis.drawAxis(ctx, leftYAxisRegion, drawSettings, tickSize);
 
   // Therapeutic Window
@@ -197,43 +232,7 @@ function UpdateGraph() {
   }
 
   // Infusion rate y-axis
-  ctx.strokeStyle = infRateColor;
-  ctx.fillStyle = infRateColor;
-
-  ctx.beginPath();
-  ctx.moveTo(leftMargin + plotWidth + 10, canvas.height - bottomMargin + lineWidth/2);
-  ctx.lineTo(leftMargin + plotWidth + 10, upperMargin);
-  ctx.stroke();
-
-  // Infusion rate label
-  ctx.font = axisLabelFont;
-  ctx.textAlign = axisLabelAlignment;
-  const infRateLabel = "Infusion rate (mg/min)";
-
-  x = leftMargin + plotWidth + 10 + axisWidth / 2;
-  y = canvas.height - bottomMargin - plotHeight / 2;
-  
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText(infRateLabel, 0, 0);
-  ctx.restore();
-
-  // Infusion axis tick marks
-  ctx.font = tickMarkLabelFont;
-  ctx.textAlign = "left";
-
-  for (let i = 0; i < infusionAxisTickPositions.length; i++) {
-    let tickMarkYpos = infusionAxisTickPositions[i];
-    let tickMarkLabel = infusionAxisTickValues[i];
-
-    ctx.beginPath();
-    ctx.moveTo(canvas.width - rightMargin + 10, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.lineTo(canvas.width - rightMargin + 10 + tickSize, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.stroke();
-
-    ctx.fillText(tickMarkLabel, canvas.width - rightMargin + 10 + tickSize + 5, canvas.height - bottomMargin - tickMarkYpos);
-  }
+  infusionAxis.drawAxis(ctx, infusionAxisRegion, drawSettings, tickSize);
 
   // Infusion rate
   if (BasicInfusion_DisplayInfusionRate) {
@@ -263,40 +262,7 @@ function UpdateGraph() {
   }
 
   // Elimination rate y-axis
-  ctx.beginPath();
-  ctx.moveTo(leftMargin + plotWidth + axisWidth + 10, canvas.height - bottomMargin + lineWidth/2);
-  ctx.lineTo(leftMargin + plotWidth + axisWidth + 10, upperMargin);
-  ctx.stroke();
-
-  // Elimination rate label
-  ctx.font = axisLabelFont;
-  ctx.textAlign = axisLabelAlignment;
-  const elimRateLabel = "Elimination rate (mg/min)";
-
-  x = leftMargin + plotWidth + axisWidth + axisWidth / 2 + 10;
-  y = canvas.height - bottomMargin - plotHeight / 2;
-  
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText(elimRateLabel, 0, 0);
-  ctx.restore();
-
-  // Elimination axis tick marks
-  ctx.font = tickMarkLabelFont;
-  ctx.textAlign = "left";
-
-  for (let i = 0; i < elimAxisTickPositions.length; i++) {
-    let tickMarkYpos = elimAxisTickPositions[i];
-    let tickMarkLabel = elimAxisTickValues[i];
-
-    ctx.beginPath();
-    ctx.moveTo(canvas.width - rightMargin + 10 + axisWidth, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.lineTo(canvas.width - rightMargin + 10 + axisWidth + tickSize, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.stroke();
-
-    ctx.fillText(tickMarkLabel, canvas.width - rightMargin + 10 + axisWidth + tickSize + 5, canvas.height - bottomMargin - tickMarkYpos);
-  }
+  eliminationAxis.drawAxis(ctx, eliminationAxisRegion, drawSettings, tickSize);
 
   // Clearance
   ctx.strokeStyle = "white";
@@ -312,40 +278,7 @@ function UpdateGraph() {
   }
 
   // Clearance y-axis
-  ctx.beginPath();
-  ctx.moveTo(leftMargin + plotWidth + 2 * axisWidth + 10, canvas.height - bottomMargin + lineWidth/2);
-  ctx.lineTo(leftMargin + plotWidth + 2 * axisWidth + 10, upperMargin);
-  ctx.stroke();
-
-  // Clearance label
-  ctx.font = axisLabelFont;
-  ctx.textAlign = axisLabelAlignment;
-  const clearanceLabel = "Clearance (ml/min)";
-
-  x = leftMargin + plotWidth + 2 * axisWidth + axisWidth / 2 + 10;
-  y = canvas.height - bottomMargin - plotHeight / 2;
-  
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText(clearanceLabel, 0, 0);
-  ctx.restore();
-
-  // Clearance axis tick marks
-  ctx.font = tickMarkLabelFont;
-  ctx.textAlign = "left";
-
-  for (let i = 0; i < clearanceAxisTickPositions.length; i++) {
-    let tickMarkYpos = clearanceAxisTickPositions[i];
-    let tickMarkLabel = clearanceAxisTickValues[i];
-
-    ctx.beginPath();
-    ctx.moveTo(canvas.width - rightMargin + 10 + 2 * axisWidth, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.lineTo(canvas.width - rightMargin + 10 + 2 * axisWidth + tickSize, canvas.height - bottomMargin - tickMarkYpos);
-    ctx.stroke();
-
-    ctx.fillText(tickMarkLabel, canvas.width - rightMargin + 10 + 2 * axisWidth + tickSize + 5, canvas.height - bottomMargin - tickMarkYpos);
-  }
+  clearanceAxis.drawAxis(ctx, clearanceAxisRegion, drawSettings, tickSize);
 
   // Five half lifes
   ctx.strokeStyle = halfLifeMarkerColor;
