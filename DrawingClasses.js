@@ -93,8 +93,6 @@ class LeftYAxis {
       let tickMarkYpos = this.tickPositions[i];
       let tickMarkLabel = this.tickLabels[i];
 
-      console.log(tickMarkYpos);
-
       ctx.beginPath();
       ctx.moveTo(drawRegion.right - tickSize, drawRegion.bottom - tickMarkYpos);
       ctx.lineTo(drawRegion.right, drawRegion.bottom - tickMarkYpos);
@@ -117,5 +115,56 @@ class LeftYAxis {
     ctx.rotate(-Math.PI / 2);
     ctx.fillText(yLabel, 0, 0);
     ctx.restore();
+  }
+}
+
+class XAxis {
+  constructor(axisLabel, tickLabels, tickPositions, axisColor) {
+    this.axisLabel = axisLabel;
+    this.tickLabels = tickLabels;
+    this.tickPositions = tickPositions;
+    this.axisColor = axisColor;
+  }
+
+  drawAxis = function(ctx, drawRegion, drawSettings, tickSize) {
+    const lineWidth = drawSettings.axisLineWidth;
+    
+    ctx.strokeStyle = this.axisColor;
+    ctx.fillStyle = this.axisColor;
+
+    // Axis
+    ctx.beginPath();
+    ctx.moveTo(drawRegion.left - lineWidth / 2, drawRegion.top);
+    ctx.lineTo(drawRegion.right + lineWidth / 2, drawRegion.top);
+    ctx.stroke();
+
+    // Tick marks
+    ctx.font = drawSettings.tickLabelFont;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+
+    for (let i = 0; i < this.tickPositions.length; i++) {
+      let tickMarkXpos = this.tickPositions[i];
+      let tickMarkLabel = this.tickLabels[i];
+
+      ctx.beginPath();
+      ctx.moveTo(drawRegion.left + tickMarkXpos, drawRegion.top);
+      ctx.lineTo(drawRegion.left + tickMarkXpos, drawRegion.top + tickSize);
+      ctx.stroke();
+
+      ctx.fillText(tickMarkLabel, drawRegion.left + tickMarkXpos, drawRegion.top + tickSize + 5);
+    }
+
+    // Axis label
+    ctx.font = drawSettings.axisLabelFont;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    const xLabel = this.axisLabel;
+
+    var x = drawRegion.center.x;
+    var y = drawRegion.bottom - drawRegion.height / 5;
+  
+    ctx.fillText(xLabel, x, y);
   }
 }

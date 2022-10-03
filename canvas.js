@@ -50,7 +50,7 @@ function UpdateGraph() {
 
   const axisWidth = canvas.width * 0.06;
   const yAxisWidth = axisWidth;
-  const xAxisHeight = yAxisWidth;
+  const xAxisHeight = yAxisWidth * 0.6;
 
   const numRightHandYaxises = 3;
 
@@ -69,10 +69,10 @@ function UpdateGraph() {
   const yAxisHeight = canvas.height - bottomMargin - upperMargin;
 
   const plotRegion = new DrawRegion(
-    canvas.height - bottomMargin - plotRegionMargin.bottom,
-    leftMargin + plotRegionMargin.left,
-    upperMargin + plotRegionMargin.top,
-    canvas.width - rightMargin - plotRegionMargin.right
+    graphRegion.bottom - xAxisHeight - plotRegionMargin.bottom,
+    graphRegion.left + yAxisWidth + plotRegionMargin.left,
+    graphRegion.top + plotRegionMargin.top,
+    graphRegion.right - numRightHandYaxises * yAxisWidth - plotRegionMargin.right
   )
 
   const leftYAxisRegion = new DrawRegion(
@@ -80,6 +80,13 @@ function UpdateGraph() {
     graphRegion.left,
     plotRegion.top,
     graphRegion.left + yAxisWidth
+  )
+
+  const xAxisRegion = new DrawRegion(
+    graphRegion.bottom,
+    plotRegion.left,
+    graphRegion.bottom - xAxisHeight,
+    plotRegion.right
   )
 
   const canvasFonts = DetermineCanvasFont(ctx, yAxisHeight * 0.8, axisWidth * 0.5, "Plasma concentration (mg/ml)");
@@ -102,8 +109,10 @@ function UpdateGraph() {
   const timeAxisTickValues = new Array(0, 250, 500, 750, 1000);
   var timeAxisTickPositions = new Array();
   for (let i = 0; i < timeAxisTickValues.length; i++) {
-    timeAxisTickPositions.push(timeAxisTickValues[i] / 1000 * plotWidth);
+    timeAxisTickPositions.push(timeAxisTickValues[i] / 1000 * plotRegion.width);
   }
+
+  const xAxis = new XAxis("Time (minutes)", timeAxisTickValues, timeAxisTickPositions, "white");
 
   const infusionAxisTickValues = new Array(0, 25, 50, 75, 100);
   var infusionAxisTickPositions = new Array();
@@ -151,33 +160,9 @@ function UpdateGraph() {
   ctx.lineWidth = lineWidth;
 
   // x-axis
-  ctx.beginPath();
-  ctx.moveTo(leftMargin - lineWidth/2, canvas.height - bottomMargin);
-  ctx.lineTo(canvas.width - rightMargin + lineWidth/2, canvas.height - bottomMargin);
-  ctx.stroke();
-
-  // x-axis label
-  ctx.font = axisLabelFont;
-  ctx.textAlign = axisLabelAlignment;
-  ctx.textBaseline = 'middle';
-  ctx.fillText('Time (minutes)', leftMargin + plotWidth / 2, canvas.height - bottomMargin / 5);
-
-  // x-axis tick marks
-  ctx.font = tickMarkLabelFont;
-  ctx.textAlign = "center";
-
-  for (let i = 0; i < timeAxisTickPositions.length; i++) {
-    let tickMarkXpos = timeAxisTickPositions[i] + leftMargin;
-    let tickMarkLabel = timeAxisTickValues[i];
-
-    ctx.beginPath();
-    ctx.moveTo(tickMarkXpos, canvas.height - bottomMargin);
-    ctx.lineTo(tickMarkXpos, canvas.height - bottomMargin + tickSize);
-    ctx.stroke();
-
-    ctx.fillText(tickMarkLabel, tickMarkXpos, canvas.height - bottomMargin + tickSize + 10);
-  }
-
+  
+  xAxis.drawAxis(ctx, xAxisRegion, drawSettings, tickSize);
+  
   leftYxis.drawAxis(ctx, leftYAxisRegion, drawSettings, tickSize);
 
   // Therapeutic Window
