@@ -184,7 +184,7 @@ function UpdateGraph() {
     timeValues.push(i * plotRegion.width / 1000.0);
   }
 
-  var halfLifeMarkerPosition = plotWidth * fiveHalfLifes / 1000;
+  var halfLifeMarkerPosition = plotRegion.width * fiveHalfLifes / 1000;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
