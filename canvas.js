@@ -135,13 +135,8 @@ function UpdateGraph() {
 
   const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", plasmaConcAxisTickValues, plasmaConcAxisTickPositions, plasmaConcColor);
 
-  const timeAxisTickValues = new Array(0, 250, 500, 750, 1000);
-  var timeAxisTickPositions = new Array();
-  for (let i = 0; i < timeAxisTickValues.length; i++) {
-    timeAxisTickPositions.push(timeAxisTickValues[i] / 1000 * plotRegion.width);
-  }
-
-  const xAxis = new XAxis("Time (minutes)", timeAxisTickValues, timeAxisTickPositions, "white");
+  const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
+  const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
 
   const infusionAxisTickValues = new Array(0, 25, 50, 75, 100);
   var infusionAxisTickPositions = new Array();

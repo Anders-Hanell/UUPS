@@ -173,11 +173,19 @@ class RightYAxis {
 }
 
 class XAxis {
-  constructor(axisLabel, tickLabels, tickPositions, axisColor) {
+  tickPositions;
+  
+  constructor(axisLabel, axisRegion, tickLabels, axisColor) {
     this.axisLabel = axisLabel;
     this.tickLabels = tickLabels;
-    this.tickPositions = tickPositions;
     this.axisColor = axisColor;
+
+    const maxValue = Math.max.apply(null, tickLabels);
+    
+    this.tickPositions = new Array();
+    for (let i = 0; i < tickLabels.length; i++) {
+      this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.width);
+    }
   }
 
   drawAxis = function(ctx, drawRegion, drawSettings, tickSize) {
