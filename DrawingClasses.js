@@ -66,14 +66,23 @@ class DrawSettings {
 }
 
 class LeftYAxis {
-  constructor(axisLabel, tickLabels, tickPositions, axisColor) {
+  tickPositions;
+  
+  constructor(axisLabel, axisRegion, tickLabels, axisColor) {
     this.axisLabel = axisLabel;
+    this.axisRegion = axisRegion;
     this.tickLabels = tickLabels;
-    this.tickPositions = tickPositions;
     this.axisColor = axisColor;
+
+    const maxValue = Math.max.apply(null, tickLabels);
+    
+    this.tickPositions = new Array();
+    for (let i = 0; i < tickLabels.length; i++) {
+      this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.height);
+    }
   }
 
-  drawAxis = function(ctx, drawRegion, drawSettings, tickSize) {
+  drawAxis = function(ctx, drawSettings, tickSize) {
     const lineWidth = drawSettings.axisLineWidth;
     
     ctx.strokeStyle = this.axisColor;
@@ -81,8 +90,8 @@ class LeftYAxis {
 
     // Axis
     ctx.beginPath();
-    ctx.moveTo(drawRegion.right, drawRegion.bottom + lineWidth/2);
-    ctx.lineTo(drawRegion.right, drawRegion.top - lineWidth/2);
+    ctx.moveTo(this.axisRegion.right, this.axisRegion.bottom + lineWidth/2);
+    ctx.lineTo(this.axisRegion.right, this.axisRegion.top - lineWidth/2);
     ctx.stroke();
 
     // Tick marks
@@ -94,11 +103,11 @@ class LeftYAxis {
       let tickMarkLabel = this.tickLabels[i];
 
       ctx.beginPath();
-      ctx.moveTo(drawRegion.right - tickSize, drawRegion.bottom - tickMarkYpos);
-      ctx.lineTo(drawRegion.right, drawRegion.bottom - tickMarkYpos);
+      ctx.moveTo(this.axisRegion.right - tickSize, this.axisRegion.bottom - tickMarkYpos);
+      ctx.lineTo(this.axisRegion.right, this.axisRegion.bottom - tickMarkYpos);
       ctx.stroke();
 
-      ctx.fillText(tickMarkLabel, drawRegion.right - tickSize - 5, drawRegion.bottom - tickMarkYpos);
+      ctx.fillText(tickMarkLabel, this.axisRegion.right - tickSize - 5, this.axisRegion.bottom - tickMarkYpos);
     }
 
     // Axis label
@@ -107,8 +116,8 @@ class LeftYAxis {
     
     const yLabel = this.axisLabel;
 
-    var x = drawRegion.left + drawRegion.width / 5;
-    var y = drawRegion.center.y;
+    var x = this.axisRegion.left + this.axisRegion.width / 5;
+    var y = this.axisRegion.center.y;
   
     ctx.save();
     ctx.translate(x, y);
@@ -119,14 +128,23 @@ class LeftYAxis {
 }
 
 class RightYAxis {
-  constructor(axisLabel, tickLabels, tickPositions, axisColor) {
+  tickPositions;
+  
+  constructor(axisLabel, axisRegion, tickLabels, axisColor) {
     this.axisLabel = axisLabel;
+    this.axisRegion = axisRegion;
     this.tickLabels = tickLabels;
-    this.tickPositions = tickPositions;
     this.axisColor = axisColor;
+
+    const maxValue = Math.max.apply(null, tickLabels);
+    
+    this.tickPositions = new Array();
+    for (let i = 0; i < tickLabels.length; i++) {
+      this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.height);
+    }
   }
 
-  drawAxis = function(ctx, drawRegion, drawSettings, tickSize) {
+  drawAxis = function(ctx, drawSettings, tickSize) {
     const lineWidth = drawSettings.axisLineWidth;
     
     ctx.strokeStyle = this.axisColor;
@@ -134,8 +152,8 @@ class RightYAxis {
 
     // Axis
     ctx.beginPath();
-    ctx.moveTo(drawRegion.left, drawRegion.bottom + lineWidth/2);
-    ctx.lineTo(drawRegion.left, drawRegion.top - lineWidth/2);
+    ctx.moveTo(this.axisRegion.left, this.axisRegion.bottom + lineWidth/2);
+    ctx.lineTo(this.axisRegion.left, this.axisRegion.top - lineWidth/2);
     ctx.stroke();
 
     // Tick marks
@@ -147,11 +165,11 @@ class RightYAxis {
       let tickMarkLabel = this.tickLabels[i];
 
       ctx.beginPath();
-      ctx.moveTo(drawRegion.left, drawRegion.bottom - tickMarkYpos);
-      ctx.lineTo(drawRegion.left + tickSize, drawRegion.bottom - tickMarkYpos);
+      ctx.moveTo(this.axisRegion.left, this.axisRegion.bottom - tickMarkYpos);
+      ctx.lineTo(this.axisRegion.left + tickSize, this.axisRegion.bottom - tickMarkYpos);
       ctx.stroke();
 
-      ctx.fillText(tickMarkLabel, drawRegion.left + tickSize + 5, drawRegion.bottom - tickMarkYpos);
+      ctx.fillText(tickMarkLabel, this.axisRegion.left + tickSize + 5, this.axisRegion.bottom - tickMarkYpos);
     }
 
     // Axis label
@@ -161,8 +179,8 @@ class RightYAxis {
     
     const yLabel = this.axisLabel;
 
-    var x = drawRegion.center.x;
-    var y = drawRegion.center.y;
+    var x = this.axisRegion.center.x;
+    var y = this.axisRegion.center.y;
   
     ctx.save();
     ctx.translate(x, y);
@@ -177,6 +195,7 @@ class XAxis {
   
   constructor(axisLabel, axisRegion, tickLabels, axisColor) {
     this.axisLabel = axisLabel;
+    this.axisRegion = axisRegion;
     this.tickLabels = tickLabels;
     this.axisColor = axisColor;
 
@@ -188,7 +207,7 @@ class XAxis {
     }
   }
 
-  drawAxis = function(ctx, drawRegion, drawSettings, tickSize) {
+  drawAxis = function(ctx, drawSettings, tickSize) {
     const lineWidth = drawSettings.axisLineWidth;
     
     ctx.strokeStyle = this.axisColor;
@@ -196,8 +215,8 @@ class XAxis {
 
     // Axis
     ctx.beginPath();
-    ctx.moveTo(drawRegion.left - lineWidth / 2, drawRegion.top);
-    ctx.lineTo(drawRegion.right + lineWidth / 2, drawRegion.top);
+    ctx.moveTo(this.axisRegion.left - lineWidth / 2, this.axisRegion.top);
+    ctx.lineTo(this.axisRegion.right + lineWidth / 2, this.axisRegion.top);
     ctx.stroke();
 
     // Tick marks
@@ -210,11 +229,11 @@ class XAxis {
       let tickMarkLabel = this.tickLabels[i];
 
       ctx.beginPath();
-      ctx.moveTo(drawRegion.left + tickMarkXpos, drawRegion.top);
-      ctx.lineTo(drawRegion.left + tickMarkXpos, drawRegion.top + tickSize);
+      ctx.moveTo(this.axisRegion.left + tickMarkXpos, this.axisRegion.top);
+      ctx.lineTo(this.axisRegion.left + tickMarkXpos, this.axisRegion.top + tickSize);
       ctx.stroke();
 
-      ctx.fillText(tickMarkLabel, drawRegion.left + tickMarkXpos, drawRegion.top + tickSize + 5);
+      ctx.fillText(tickMarkLabel, this.axisRegion.left + tickMarkXpos, this.axisRegion.top + tickSize + 5);
     }
 
     // Axis label
@@ -224,8 +243,8 @@ class XAxis {
 
     const xLabel = this.axisLabel;
 
-    var x = drawRegion.center.x;
-    var y = drawRegion.bottom - drawRegion.height / 5;
+    var x = this.axisRegion.center.x;
+    var y = this.axisRegion.bottom - this.axisRegion.height / 5;
   
     ctx.fillText(xLabel, x, y);
   }

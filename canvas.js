@@ -128,36 +128,19 @@ function UpdateGraph() {
   const tickMarkLabelAlignment = "right";
 
   const plasmaConcAxisTickValues = new Array(0, 2500, 5000, 7500, 10000);
-  var plasmaConcAxisTickPositions = new Array();
-  for (let i = 0; i < plasmaConcAxisTickValues.length; i++) {
-    plasmaConcAxisTickPositions.push(plasmaConcAxisTickValues[i] / 10000 * leftYAxisRegion.height);
-  }
-
-  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", plasmaConcAxisTickValues, plasmaConcAxisTickPositions, plasmaConcColor);
+  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor);
 
   const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
   const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
 
   const infusionAxisTickValues = new Array(0, 25, 50, 75, 100);
-  var infusionAxisTickPositions = new Array();
-  for (let i = 0; i < infusionAxisTickValues.length; i++) {
-    infusionAxisTickPositions.push(infusionAxisTickValues[i] / 100 * plotRegion.height);
-  }
-
-  const infusionAxis = new RightYAxis("Infusion rate (mg/min)", infusionAxisTickValues, infusionAxisTickPositions, infRateColor);
+  const infusionAxis = new RightYAxis("Infusion rate (mg/min)", infusionAxisRegion, infusionAxisTickValues, infRateColor);
 
   const elimAxisTickValues = infusionAxisTickValues;
-  const elimAxisTickPositions = infusionAxisTickPositions;
-
-  const eliminationAxis = new RightYAxis("Elimination rate (mg/min)", elimAxisTickValues, elimAxisTickPositions, elimRateColor);
+  const eliminationAxis = new RightYAxis("Elimination rate (mg/min)", eliminationAxisRegion, elimAxisTickValues, elimRateColor);
 
   const clearanceAxisTickValues = new Array(0, 1, 2, 3, 4, 5);
-  var clearanceAxisTickPositions = new Array();
-  for (let i = 0; i < clearanceAxisTickValues.length; i++) {
-    clearanceAxisTickPositions.push(clearanceAxisTickValues[i] / 5 * plotRegion.height);
-  }
-
-  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisTickValues, clearanceAxisTickPositions, "white");
+  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisRegion, clearanceAxisTickValues, "white");
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
@@ -190,10 +173,10 @@ function UpdateGraph() {
   ctx.lineWidth = lineWidth;
 
   // x-axis
-  xAxis.drawAxis(ctx, xAxisRegion, drawSettings, tickSize);
+  xAxis.drawAxis(ctx, drawSettings, tickSize);
   
   // y-axis
-  leftYxis.drawAxis(ctx, leftYAxisRegion, drawSettings, tickSize);
+  leftYxis.drawAxis(ctx, drawSettings, tickSize);
 
   // Therapeutic Window
   if (BasicInfusion_DisplayTherapeuticWindow) {
@@ -227,7 +210,7 @@ function UpdateGraph() {
   }
 
   // Infusion rate y-axis
-  infusionAxis.drawAxis(ctx, infusionAxisRegion, drawSettings, tickSize);
+  infusionAxis.drawAxis(ctx, drawSettings, tickSize);
 
   // Infusion rate
   if (BasicInfusion_DisplayInfusionRate) {
@@ -257,7 +240,7 @@ function UpdateGraph() {
   }
 
   // Elimination rate y-axis
-  eliminationAxis.drawAxis(ctx, eliminationAxisRegion, drawSettings, tickSize);
+  eliminationAxis.drawAxis(ctx, drawSettings, tickSize);
 
   // Clearance
   ctx.strokeStyle = "white";
@@ -273,7 +256,7 @@ function UpdateGraph() {
   }
 
   // Clearance y-axis
-  clearanceAxis.drawAxis(ctx, clearanceAxisRegion, drawSettings, tickSize);
+  clearanceAxis.drawAxis(ctx, drawSettings, tickSize);
 
   // Five half lifes
   ctx.strokeStyle = halfLifeMarkerColor;
