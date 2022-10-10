@@ -100,13 +100,23 @@ function ConfigureBasicInfusion_InfusionTimeSlider() {
 }
 
 function UpdateSliderValueLabels() {
+  if (CurrentModel == "BasicInfusion") {
+    UpdateBasicInfusionSliderValueLabels();
+  }  
+
+  if (CurrentModel == "OralAdmin") {
+    UpdateOralAdminSliderValueLabels();
+  } 
+}
+
+function UpdateBasicInfusionSliderValueLabels() {
   let container = document.getElementById('BasicInfusion_BolusDoseSlider');
   let slider = container.querySelector('.my-slider');
   let valueLabel = container.querySelector('.SliderValueLabel');
   let valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
   BasicInfusion_BolusDoseSliderValue = slider.value;
-
+   
   container = document.getElementById('BasicInfusion_InfusionRateSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
@@ -128,6 +138,8 @@ function UpdateSliderValueLabels() {
   valueSpan.innerText = slider.value;
   BasicInfusion_InfusionTimeSliderValue = slider.value;
 }
+
+
 
 function UpdateSliderFontSizes() {
   const sliderContainers = document.querySelectorAll('slider-container');

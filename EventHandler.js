@@ -1,6 +1,8 @@
 var NavigationIsVisible = true;
 var FullScreenIsActive = false;
 
+var CurrentModel = "BasicInfusion";
+
 function PageFinishedLoading() {
   let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
   let bodyWidth = screen.availWidth - (window.outerWidth - window.innerWidth);
@@ -42,6 +44,7 @@ function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {
 
 function AdjustButtonTextSize() {
   AdjustFontSize("ConstantInfusionButton", 0.80, 0.60);
+  AdjustFontSize("OralAdministrationButton", 0.80, 0.60);
   AdjustFontSize("AboutButton", 0.80, 0.60);
 
   AdjustFontSize("GraphButton", 0.80, 0.60);
@@ -74,6 +77,8 @@ function OnSidebarButtonClick(buttonId) {
   const conentContainer = document.getElementById("ContentContainer");
   
   if (buttonId == "ConstantInfusionButton") {
+    CurrentModel = "BasicInfusion";
+    
     conentContainer.innerHTML = "<basic-infusion-both></basic-infusion-both>";
     
     AdjustButtonTextSize();
@@ -84,6 +89,17 @@ function OnSidebarButtonClick(buttonId) {
     UpdateCheckboxFontSizes();
     
     UpdateGraph();
+  }
+
+  if (buttonId == "OralAdministrationButton") {
+    CurrentModel = "OralAdmin";
+    
+    conentContainer.innerHTML = "<oral-admin-both></oral-admin-both>";
+    
+    UpdateSliderSize();
+    UpdateSliderFontSizes();
+
+    OralAdmin_UpdateGraph();
   }
 
   if (buttonId == "AboutButton") {

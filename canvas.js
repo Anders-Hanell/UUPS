@@ -2,7 +2,13 @@ function OnNewSliderValue() {
   UpdateSliderValueLabels();
   
   if (CurrentTab == "Both") {
-    UpdateGraph();
+    if (CurrentModel == "BasicInfusion") {
+      UpdateGraph();
+    }
+    
+    if (CurrentModel == "OralAdmin") {
+      OralAdmin_UpdateGraph();
+    }
   }
 }
 
