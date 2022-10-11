@@ -33,11 +33,14 @@ class OralAdmin_Controls extends HTMLElement {
       <slider-container id="OralAdmin_DailyDoseSlider"></slider-container>
       <slider-container id="OralAdmin_TabletsPerDaySlider"></slider-container>
     </div>
+    <div class="ControlPanelColumn">
+      <slider-container id="OralAdmin_TabletDissolveTimeSlider"></slider-container>
+    </div>
     `;
 
     ConfigureOralAdmin_DailyDoseSlider();
     ConfigureOralAdmin_TabletsPerDaySlider();
-    
+    ConfigureOralAdmin_TabletDissolveTimeSlider();
   }
 }
 customElements.define('oral-admin-controls', OralAdmin_Controls);

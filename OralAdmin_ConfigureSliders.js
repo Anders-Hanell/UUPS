@@ -1,5 +1,6 @@
 var OralAdmin_DailyDoseSliderSliderValue = 100;
 var OralAdmin_TabletsPerDaySliderValue = 2;
+var OralAdmin_TabletDissolveTimeSliderValue = 4;
 
 function ConfigureOralAdmin_DailyDoseSlider() {
   const container = document.getElementById('OralAdmin_DailyDoseSlider');
@@ -49,6 +50,30 @@ function ConfigureOralAdmin_TabletsPerDaySlider() {
   slider.value = OralAdmin_TabletsPerDaySliderValue;
 }
 
+function ConfigureOralAdmin_TabletDissolveTimeSlider() {
+  const container = document.getElementById('OralAdmin_TabletDissolveTimeSlider');
+  const slider = container.querySelector('.my-slider');
+  const mainLabel = container.querySelector('.SliderMainLabel');
+  const minLabel = container.querySelector('.SliderMinLabel');
+  const valueLabel = container.querySelector('.SliderValueLabel');
+  const maxLabel = container.querySelector('.SliderMaxLabel');
+
+  const mainLabelSpan = mainLabel.querySelector('span');
+  const minLabelSpan = minLabel.querySelector('span');
+  const valueLabelSpan = valueLabel.querySelector('span');
+  const maxLabelSpan = maxLabel.querySelector('span');
+
+  mainLabelSpan.innerText = "Tablet dissolve time (hours)";
+  minLabelSpan.innerText = "1";
+  valueLabelSpan.innerText = OralAdmin_TabletDissolveTimeSliderValue;
+  maxLabelSpan.innerText = "24";
+
+  slider.min = "1";
+  slider.max = "24";
+  slider.step = "1";
+  slider.value = OralAdmin_TabletDissolveTimeSliderValue;
+}
+
 function UpdateOralAdminSliderValueLabels() {
   let container = document.getElementById('OralAdmin_DailyDoseSlider');
   let slider = container.querySelector('.my-slider');
@@ -63,4 +88,11 @@ function UpdateOralAdminSliderValueLabels() {
   valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
   OralAdmin_TabletsPerDaySliderValue = slider.value;
+
+  container = document.getElementById('OralAdmin_TabletDissolveTimeSlider');
+  slider = container.querySelector('.my-slider');
+  valueLabel = container.querySelector('.SliderValueLabel');
+  valueSpan = valueLabel.querySelector('span');
+  valueSpan.innerText = slider.value;
+  OralAdmin_TabletDissolveTimeSliderValue = slider.value;
 }
