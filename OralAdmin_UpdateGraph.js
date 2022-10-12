@@ -7,9 +7,17 @@ function OralAdmin_UpdateGraph() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  var calculatedValues = OralAdmin_CalculateValues(OralAdmin_DailyDoseSliderSliderValue, OralAdmin_TabletsPerDaySliderValue, OralAdmin_TabletDissolveTimeSliderValue);
-  var plasmaConc = calculatedValues[0];
+  var calculatedValues = OralAdmin_CalculateValues(
+    OralAdmin_DailyDoseSliderSliderValue,
+    OralAdmin_TabletsPerDaySliderValue,
+    OralAdmin_TabletDissolveTimeSliderValue,
+    OralAdmin_BioavailabilitySliderValue
+  );
   
+  var plasmaConc = calculatedValues[0];
+  var releaseRate = calculatedValues[1];
+  var absorbtionRate = calculatedValues[2];
+
   const plasmaConcColor = "#428bca";
   const infRateColor = "#bd2b30";
   const elimRateColor = "#3f9762";
@@ -73,14 +81,14 @@ function OralAdmin_UpdateGraph() {
     graphRegion.right
   )
 
-  const infusionAxisRegion = new DrawRegion(
+  const releaseRateAxisRegion = new DrawRegion(
     rightSideAxisRegion.bottom,
     rightSideAxisRegion.left,
     rightSideAxisRegion.top,
     rightSideAxisRegion.left + yAxisWidth
   )
 
-  const eliminationAxisRegion = new DrawRegion(
+  const absorbtionAxisRegion = new DrawRegion(
     rightSideAxisRegion.bottom,
     rightSideAxisRegion.left + yAxisWidth + rightSideAxisSpacing,
     rightSideAxisRegion.top,
@@ -100,24 +108,24 @@ function OralAdmin_UpdateGraph() {
   
   const drawSettings = new DrawSettings(axisLabelFont, tickMarkLabelFont, 2);
 
-  const plasmaConcAxisTickValues = new Array(0, 2500, 5000, 7500, 10000);
+  const plasmaConcAxisTickValues = new Array(0, 250, 500, 700, 1000);
   const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor);
 
   const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
   const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
 
-  const infusionAxisTickValues = new Array(0, 25, 50, 75, 100);
-  const infusionAxis = new RightYAxis("Infusion rate (mg/min)", infusionAxisRegion, infusionAxisTickValues, infRateColor);
+  const releaseRateAxisTickValues = new Array(0, 25, 50, 75, 100);
+  const releaseRateAxis = new RightYAxis("Release rate (mg/min)", releaseRateAxisRegion, releaseRateAxisTickValues, infRateColor);
 
-  const elimAxisTickValues = infusionAxisTickValues;
-  const eliminationAxis = new RightYAxis("Elimination rate (mg/min)", eliminationAxisRegion, elimAxisTickValues, elimRateColor);
+  const absorbtionAxisTickValues = new Array(0, 25, 50, 75, 100);
+  const absorbtionRateAxis = new RightYAxis("Absorbtion rate (mg/min)", absorbtionAxisRegion, absorbtionAxisTickValues, elimRateColor);
 
   const clearanceAxisTickValues = new Array(0, 1, 2, 3, 4, 5);
   const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisRegion, clearanceAxisTickValues, "white");
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
-    yPos.push(plasmaConc[i] * plotRegion.height / 10000.0);
+    yPos.push(plasmaConc[i] * plotRegion.height / 1000.0);
   }
 
   var timeValues = [];
@@ -125,12 +133,24 @@ function OralAdmin_UpdateGraph() {
     timeValues.push(i * plotRegion.width / 1000.0);
   }
   
+  var releaseRateYpos = [];
+  for (let i = 0; i < 1000; i++) {
+    releaseRateYpos.push(releaseRate[i] * plotRegion.height / 100.0);
+  }
+
+  var absorbtionRateYpos = [];
+  for (let i = 0; i < 1000; i++) {
+    absorbtionRateYpos.push(absorbtionRate[i] * plotRegion.height / 100.0);
+  }
+
+
+
   xAxis.drawAxis(ctx, drawSettings, tickSize);
   
   // y-axis
   leftYxis.drawAxis(ctx, drawSettings, tickSize);
 
-  if (true) {
+  if (OralAdmin_DisplayPlasmaConcentration) {
     ctx.strokeStyle = plasmaConcColor;
     ctx.fillStyle = plasmaConcColor;
     
@@ -144,7 +164,33 @@ function OralAdmin_UpdateGraph() {
     ctx.stroke();
   }
 
+  // Release rate y-axis
+  releaseRateAxis.drawAxis(ctx, drawSettings, tickSize);
 
+  // Release rate
+  if (OralAdmin_DisplayReleaseRate) {
+    ctx.beginPath();
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - releaseRateYpos[0]);
+    for (let i = 0; i < 1000; i++) {
+      if (releaseRateYpos[i] <= plotRegion.height){
+        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - releaseRateYpos[i]);
+      }
+    }
+    ctx.stroke();
+  }
 
+  // Absorbtion rate y-axis
+  absorbtionRateAxis.drawAxis(ctx, drawSettings, tickSize);
 
+  // Absorbtion rate
+  if (OralAdmin_DisplayAbsorbtionRate) {
+    ctx.beginPath();
+    ctx.moveTo(plotRegion.left, plotRegion.bottom - absorbtionRateYpos[0]);
+    for (let i = 0; i < 1000; i++) {
+      if (absorbtionRateYpos[i] <= plotRegion.height){
+        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - absorbtionRateYpos[i]);
+      }
+    }
+    ctx.stroke();
+  }
 }

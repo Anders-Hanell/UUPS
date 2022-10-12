@@ -1,6 +1,7 @@
 var OralAdmin_DailyDoseSliderSliderValue = 100;
 var OralAdmin_TabletsPerDaySliderValue = 2;
 var OralAdmin_TabletDissolveTimeSliderValue = 4;
+var OralAdmin_BioavailabilitySliderValue = 50;
 
 function ConfigureOralAdmin_DailyDoseSlider() {
   const container = document.getElementById('OralAdmin_DailyDoseSlider');
@@ -74,6 +75,30 @@ function ConfigureOralAdmin_TabletDissolveTimeSlider() {
   slider.value = OralAdmin_TabletDissolveTimeSliderValue;
 }
 
+function ConfigureOralAdmin_BioavailabilitySlider() {
+  const container = document.getElementById('OralAdmin_BioavailabilitySlider');
+  const slider = container.querySelector('.my-slider');
+  const mainLabel = container.querySelector('.SliderMainLabel');
+  const minLabel = container.querySelector('.SliderMinLabel');
+  const valueLabel = container.querySelector('.SliderValueLabel');
+  const maxLabel = container.querySelector('.SliderMaxLabel');
+
+  const mainLabelSpan = mainLabel.querySelector('span');
+  const minLabelSpan = minLabel.querySelector('span');
+  const valueLabelSpan = valueLabel.querySelector('span');
+  const maxLabelSpan = maxLabel.querySelector('span');
+
+  mainLabelSpan.innerText = "Bioavailability (%)";
+  minLabelSpan.innerText = "10";
+  valueLabelSpan.innerText = OralAdmin_BioavailabilitySliderValue;
+  maxLabelSpan.innerText = "100";
+
+  slider.min = "10";
+  slider.max = "100";
+  slider.step = "1";
+  slider.value = OralAdmin_BioavailabilitySliderValue;
+}
+
 function UpdateOralAdminSliderValueLabels() {
   let container = document.getElementById('OralAdmin_DailyDoseSlider');
   let slider = container.querySelector('.my-slider');
@@ -95,4 +120,11 @@ function UpdateOralAdminSliderValueLabels() {
   valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
   OralAdmin_TabletDissolveTimeSliderValue = slider.value;
+
+  container = document.getElementById('OralAdmin_BioavailabilitySlider');
+  slider = container.querySelector('.my-slider');
+  valueLabel = container.querySelector('.SliderValueLabel');
+  valueSpan = valueLabel.querySelector('span');
+  valueSpan.innerText = slider.value;
+  OralAdmin_BioavailabilitySliderValue = slider.value;
 }

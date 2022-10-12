@@ -83,3 +83,33 @@ function UpdateCheckboxSize() {
     marker.style.width = markerSize + "px";
   }
 }
+
+function BasicInfusion_OnCheckboxChange() {
+  let container = document.getElementById("BasicInfusion_DisplayPlasmaConcentrationCheckbox");
+  let checkbox = container.querySelector('input');
+  BasicInfusion_DisplayPlasmaConcentration = checkbox.checked;
+
+  container = document.getElementById("BasicInfusion_DisplayInfusionRateCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayInfusionRate = checkbox.checked;
+
+  container = document.getElementById("BasicInfusion_DisplayEliminationRateCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayEliminationRate = checkbox.checked;
+
+  container = document.getElementById("BasicInfusion_DisplayHalflifeMarkerCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayHalflifeMarker = checkbox.checked;
+
+  container = document.getElementById("BasicInfusion_DisplayClearanceCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayClearance = checkbox.checked;
+
+  container = document.getElementById("BasicInfusion_DisplayTherapeuticWindowCheckbox");
+  checkbox = container.querySelector('input');
+  BasicInfusion_DisplayTherapeuticWindow = checkbox.checked;
+
+  if (CurrentTab == "Both") {
+    UpdateGraph();
+  }
+}

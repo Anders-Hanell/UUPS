@@ -35,12 +35,24 @@ class OralAdmin_Controls extends HTMLElement {
     </div>
     <div class="ControlPanelColumn">
       <slider-container id="OralAdmin_TabletDissolveTimeSlider"></slider-container>
+      <slider-container id="OralAdmin_BioavailabilitySlider"></slider-container>
+    </div>
+    <div class="ControlPanelColumn">
+      <checkbox-container id = "OralAdmin_DisplayPlasmaConcentrationCheckbox"></checkbox-container>
+      <checkbox-container id = "OralAdmin_DisplayReleaseRateCheckbox"></checkbox-container>
+      <checkbox-container id = "OralAdmin_DisplayAbsorbtionRateCheckbox"></checkbox-container>
     </div>
     `;
 
     ConfigureOralAdmin_DailyDoseSlider();
     ConfigureOralAdmin_TabletsPerDaySlider();
+
     ConfigureOralAdmin_TabletDissolveTimeSlider();
+    ConfigureOralAdmin_BioavailabilitySlider();
+
+    ConfigureOralAdmin_DisplayPlasmaConcentrationCheckbox();
+    ConfigureOralAdmin_DisplayReleaseRateCheckbox();
+    ConfigureOralAdmin_DisplayAbsorbtionRateCheckbox();
   }
 }
 customElements.define('oral-admin-controls', OralAdmin_Controls);

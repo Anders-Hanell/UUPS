@@ -99,6 +99,8 @@ function OnSidebarButtonClick(buttonId) {
     UpdateSliderSize();
     UpdateSliderFontSizes();
 
+    UpdateCheckboxFontSizes();
+
     OralAdmin_UpdateGraph();
   }
 
@@ -233,31 +235,11 @@ function OnDescriptionButtonClick() {
 }
 
 function OnCheckboxChange() {
-  let container = document.getElementById("BasicInfusion_DisplayPlasmaConcentrationCheckbox");
-  let checkbox = container.querySelector('input');
-  BasicInfusion_DisplayPlasmaConcentration = checkbox.checked;
+  if (CurrentModel == "BasicInfusion") {
+    BasicInfusion_OnCheckboxChange();
+  }
 
-  container = document.getElementById("BasicInfusion_DisplayInfusionRateCheckbox");
-  checkbox = container.querySelector('input');
-  BasicInfusion_DisplayInfusionRate = checkbox.checked;
-
-  container = document.getElementById("BasicInfusion_DisplayEliminationRateCheckbox");
-  checkbox = container.querySelector('input');
-  BasicInfusion_DisplayEliminationRate = checkbox.checked;
-
-  container = document.getElementById("BasicInfusion_DisplayHalflifeMarkerCheckbox");
-  checkbox = container.querySelector('input');
-  BasicInfusion_DisplayHalflifeMarker = checkbox.checked;
-
-  container = document.getElementById("BasicInfusion_DisplayClearanceCheckbox");
-  checkbox = container.querySelector('input');
-  BasicInfusion_DisplayClearance = checkbox.checked;
-
-  container = document.getElementById("BasicInfusion_DisplayTherapeuticWindowCheckbox");
-  checkbox = container.querySelector('input');
-  BasicInfusion_DisplayTherapeuticWindow = checkbox.checked;
-
-  if (CurrentTab == "Both") {
-    UpdateGraph();
+  if (CurrentModel == "OralAdmin") {
+    OralAdmin_OnCheckboxChange();
   }
 }
