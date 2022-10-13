@@ -45,6 +45,7 @@ function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {
 function AdjustButtonTextSize() {
   AdjustFontSize("ConstantInfusionButton", 0.80, 0.60);
   AdjustFontSize("OralAdministrationButton", 0.80, 0.60);
+  AdjustFontSize("TwoCompartmentButton", 0.80, 0.60);
   AdjustFontSize("AboutButton", 0.80, 0.60);
 
   AdjustFontSize("GraphButton", 0.80, 0.60);
@@ -102,6 +103,19 @@ function OnSidebarButtonClick(buttonId) {
     UpdateCheckboxFontSizes();
 
     OralAdmin_UpdateGraph();
+  }
+
+  if (buttonId == "TwoCompartmentButton") {
+    CurrentModel = "TwoCompartment";
+    
+    conentContainer.innerHTML = "<two-compartment-both></two-compartment-both>";
+    
+    UpdateSliderSize();
+    UpdateSliderFontSizes();
+
+    //UpdateCheckboxFontSizes();
+
+    TwoCompartment_UpdateGraph();
   }
 
   if (buttonId == "AboutButton") {

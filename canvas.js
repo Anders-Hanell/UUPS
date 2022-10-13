@@ -9,6 +9,10 @@ function OnNewSliderValue() {
     if (CurrentModel == "OralAdmin") {
       OralAdmin_UpdateGraph();
     }
+
+    if (CurrentModel == "TwoCompartment") {
+      TwoCompartment_UpdateGraph();
+    }
   }
 }
 

@@ -107,6 +107,10 @@ function UpdateSliderValueLabels() {
   if (CurrentModel == "OralAdmin") {
     UpdateOralAdminSliderValueLabels();
   } 
+
+  if (CurrentModel == "TwoCompartment") {
+    UpdateTwoCompartmentSliderValueLabels();
+  } 
 }
 
 function UpdateBasicInfusionSliderValueLabels() {
@@ -138,8 +142,6 @@ function UpdateBasicInfusionSliderValueLabels() {
   valueSpan.innerText = slider.value;
   BasicInfusion_InfusionTimeSliderValue = slider.value;
 }
-
-
 
 function UpdateSliderFontSizes() {
   const sliderContainers = document.querySelectorAll('slider-container');
