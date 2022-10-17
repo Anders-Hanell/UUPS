@@ -119,6 +119,22 @@ function TwoCompartment_UpdateGraph() {
     yPos.push(plasmaConc[i] * plotRegion.height / 10.0);
   }
 
+  const lowerLog = Math.log10(0.01);
+  const upperLog = Math.log10(10);
+
+  let logPlasmaConcPosition = [];
+  for (let i = 0; i < 1000; i++) {
+       
+    let logPlasmaConc = Math.log10(plasmaConc[i]);
+    if (plasmaConc[i] == 0) {
+      logPlasmaConc = Math.log10(0.0001);
+    }
+    
+    const fractionalPosition = (logPlasmaConc - lowerLog) / (upperLog - lowerLog);
+
+    logPlasmaConcPosition.push(fractionalPosition * plotRegion.height);
+  }
+
   var timeValues = [];
   for (let i = 0.0; i < 1000.0; i++) {
     timeValues.push(i * plotRegion.width / 1000.0);
@@ -134,7 +150,7 @@ function TwoCompartment_UpdateGraph() {
   // y-axis
   leftYxis.drawAxis(ctx, drawSettings, tickSize);
 
-  if (true) {
+  if (false) {
     ctx.strokeStyle = plasmaConcColor;
     ctx.fillStyle = plasmaConcColor;
     
@@ -148,10 +164,22 @@ function TwoCompartment_UpdateGraph() {
     ctx.stroke();
   }
 
+  if (true) {
+    ctx.strokeStyle = plasmaConcColor;
+    ctx.fillStyle = plasmaConcColor;
+    
+    ctx.beginPath();
+    ctx.moveTo(plotRegion.left, plotRegion.bottom);
+    for (let i = 0; i < 1000; i++) {
+      ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - logPlasmaConcPosition[i]);
+    }
+    ctx.stroke();
+  }
+
   // Peripheral concentration axis
   peripheralConcAxis.drawAxis(ctx, drawSettings, tickSize);
 
-  if (true) {
+  if (false) {
     ctx.strokeStyle = infRateColor;
     ctx.fillStyle = infRateColor;
     
