@@ -106,13 +106,19 @@ function TwoCompartment_UpdateGraph() {
   const drawSettings = new DrawSettings(axisLabelFont, tickMarkLabelFont, 2);
 
   const plasmaConcAxisTickValues = new Array(0, 2.5, 5.0, 7.5, 10.0);
-  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor);
+  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor, false);
+
+  const logPlasmaConcAxisTickValues = new Array(0.01, 0.1, 1, 10.0);
+  const logLeftYxis = new LeftYAxis("Log plasma concentration (mg/ml)", leftYAxisRegion, logPlasmaConcAxisTickValues, plasmaConcColor, true);  
 
   const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
   const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
 
   const peripheralConcAxisTickValues = new Array(0, 2.5, 5.0, 7.5, 10.0);
-  const peripheralConcAxis = new RightYAxis("Peripheral conc (mg/ml)", peripheralConcAxisRegion, peripheralConcAxisTickValues, infRateColor);
+  const peripheralConcAxis = new RightYAxis("Peripheral conc (mg/ml)", peripheralConcAxisRegion, peripheralConcAxisTickValues, infRateColor, false);
+
+  const logPeripheralConcAxisTickValues = new Array(0.01, 0.1, 1, 10.0);
+  const logPeripheralConcAxis = new RightYAxis("Log peripheral conc (mg/ml)", peripheralConcAxisRegion, logPeripheralConcAxisTickValues, infRateColor, true);
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
@@ -145,12 +151,30 @@ function TwoCompartment_UpdateGraph() {
     peripheralConcYpos.push(peripheralConc[i] * plotRegion.height / 10.0);
   }
 
+  let logPeripheralConcPosition = [];
+  for (let i = 0; i < 1000; i++) {
+       
+    let logPeripheralConc = Math.log10(peripheralConc[i]);
+    if (peripheralConc[i] == 0) {
+      logPeripheralConc = Math.log10(0.0001);
+    }
+    
+    const fractionalPosition = (logPeripheralConc - lowerLog) / (upperLog - lowerLog);
+
+    logPeripheralConcPosition.push(fractionalPosition * plotRegion.height);
+  }
+
   xAxis.drawAxis(ctx, drawSettings, tickSize);
   
   // y-axis
-  leftYxis.drawAxis(ctx, drawSettings, tickSize);
-
-  if (false) {
+  if (TwoCompartment_LogPlasmaConcentration) {
+    logLeftYxis.drawAxis(ctx, drawSettings, tickSize);
+  }
+  else {
+    leftYxis.drawAxis(ctx, drawSettings, tickSize);
+  }
+  
+  if (TwoCompartment_DisplayPlasmaConcentration & ! TwoCompartment_LogPlasmaConcentration) {
     ctx.strokeStyle = plasmaConcColor;
     ctx.fillStyle = plasmaConcColor;
     
@@ -164,7 +188,7 @@ function TwoCompartment_UpdateGraph() {
     ctx.stroke();
   }
 
-  if (true) {
+  if (TwoCompartment_DisplayPlasmaConcentration & TwoCompartment_LogPlasmaConcentration) {
     ctx.strokeStyle = plasmaConcColor;
     ctx.fillStyle = plasmaConcColor;
     
@@ -177,9 +201,14 @@ function TwoCompartment_UpdateGraph() {
   }
 
   // Peripheral concentration axis
-  peripheralConcAxis.drawAxis(ctx, drawSettings, tickSize);
-
-  if (false) {
+  if (TwoCompartment_LogPeripheralConcentration) {
+    logPeripheralConcAxis.drawAxis(ctx, drawSettings, tickSize);
+  }
+  else {
+    peripheralConcAxis.drawAxis(ctx, drawSettings, tickSize);
+  }
+  
+  if (TwoCompartment_DisplayPeripheralConcentration & ! TwoCompartment_LogPeripheralConcentration) {
     ctx.strokeStyle = infRateColor;
     ctx.fillStyle = infRateColor;
     
@@ -188,6 +217,20 @@ function TwoCompartment_UpdateGraph() {
     for (let i = 0; i < 1000; i++) {
       if (peripheralConcYpos[i] <= plotRegion.height){
         ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - peripheralConcYpos[i]);
+      }
+    }
+    ctx.stroke();
+  }
+
+  if (TwoCompartment_DisplayPeripheralConcentration & TwoCompartment_LogPeripheralConcentration) {
+    ctx.strokeStyle = infRateColor;
+    ctx.fillStyle = infRateColor;
+    
+    ctx.beginPath();
+    ctx.moveTo(plotRegion.left, plotRegion.bottom);
+    for (let i = 0; i < 1000; i++) {
+      if (logPeripheralConcPosition[i] <= plotRegion.height){
+        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - logPeripheralConcPosition[i]);
       }
     }
     ctx.stroke();

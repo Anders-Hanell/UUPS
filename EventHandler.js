@@ -113,7 +113,7 @@ function OnSidebarButtonClick(buttonId) {
     UpdateSliderSize();
     UpdateSliderFontSizes();
 
-    //UpdateCheckboxFontSizes();
+    UpdateCheckboxFontSizes();
 
     TwoCompartment_UpdateGraph();
   }
@@ -255,5 +255,9 @@ function OnCheckboxChange() {
 
   if (CurrentModel == "OralAdmin") {
     OralAdmin_OnCheckboxChange();
+  }
+
+  if (CurrentModel == "TwoCompartment") {
+    TwoCompartment_OnCheckboxChange();
   }
 }

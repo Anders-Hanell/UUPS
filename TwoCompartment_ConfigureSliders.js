@@ -1,5 +1,5 @@
-var TwoCompartment_BolusDoseSliderValue = 0;
-var TwoCompartment_InfusionRateSliderValue = 7.5;
+var TwoCompartment_BolusDoseSliderValue = 400;
+var TwoCompartment_InfusionRateSliderValue = 0.0;
 
 function ConfigureTwoCompartment_BolusDoseSlider() {
   const container = document.getElementById('TwoCompartment_BolusDoseSlider');

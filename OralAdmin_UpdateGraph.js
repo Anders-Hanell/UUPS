@@ -109,19 +109,19 @@ function OralAdmin_UpdateGraph() {
   const drawSettings = new DrawSettings(axisLabelFont, tickMarkLabelFont, 2);
 
   const plasmaConcAxisTickValues = new Array(0, 250, 500, 700, 1000);
-  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor);
+  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor, false);
 
   const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
   const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
 
   const releaseRateAxisTickValues = new Array(0, 25, 50, 75, 100);
-  const releaseRateAxis = new RightYAxis("Release rate (mg/min)", releaseRateAxisRegion, releaseRateAxisTickValues, infRateColor);
+  const releaseRateAxis = new RightYAxis("Release rate (mg/min)", releaseRateAxisRegion, releaseRateAxisTickValues, infRateColor, false);
 
   const absorbtionAxisTickValues = new Array(0, 25, 50, 75, 100);
-  const absorbtionRateAxis = new RightYAxis("Absorbtion rate (mg/min)", absorbtionAxisRegion, absorbtionAxisTickValues, elimRateColor);
+  const absorbtionRateAxis = new RightYAxis("Absorbtion rate (mg/min)", absorbtionAxisRegion, absorbtionAxisTickValues, elimRateColor, false);
 
   const clearanceAxisTickValues = new Array(0, 1, 2, 3, 4, 5);
-  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisRegion, clearanceAxisTickValues, "white");
+  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisRegion, clearanceAxisTickValues, "white", false);
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {

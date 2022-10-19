@@ -30,13 +30,24 @@ class TwoCompartment_Controls extends HTMLElement {
     this.id = "ControlsContainer";
     this.innerHTML = `
     <div class="ControlPanelColumn">
-    <slider-container id="TwoCompartment_BolusDoseSlider"></slider-container>
-    <slider-container id="TwoCompartment_InfusionRateSlider"></slider-container>
+      <slider-container id="TwoCompartment_BolusDoseSlider"></slider-container>
+      <slider-container id="TwoCompartment_InfusionRateSlider"></slider-container>
+    </div>
+    <div class="ControlPanelColumn">
+      <checkbox-container id = "TwoCompartment_DisplayPlasmaConcentrationCheckbox"></checkbox-container>
+      <checkbox-container id = "TwoCompartment_LogPlasmaConcentrationCheckbox"></checkbox-container>
+      <checkbox-container id = "TwoCompartment_DisplayPeripheralConcentrationCheckbox"></checkbox-container>
+      <checkbox-container id = "TwoCompartment_LogPeripheralConcentrationCheckbox"></checkbox-container>
     </div>
     `;
 
     ConfigureTwoCompartment_BolusDoseSlider();
     ConfigureTwoCompartment_InfusionRateSlider();
+
+    ConfigureTwoCompartment_DisplayPlasmaConcentrationCheckbox();
+    ConfigureTwoCompartment_LogPlasmaConcentrationCheckbox();
+    ConfigureTwoCompartment_DisplayPeripheralConcentrationCheckbox();
+    ConfigureTwoCompartment_LogPeripheralConcentrationCheckbox();
   }
 }
 customElements.define('two-compartment-controls', TwoCompartment_Controls);

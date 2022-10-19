@@ -68,17 +68,31 @@ class DrawSettings {
 class LeftYAxis {
   tickPositions;
   
-  constructor(axisLabel, axisRegion, tickLabels, axisColor) {
+  constructor(axisLabel, axisRegion, tickLabels, axisColor, isLogarithmic) {
     this.axisLabel = axisLabel;
     this.axisRegion = axisRegion;
     this.tickLabels = tickLabels;
     this.axisColor = axisColor;
 
+    const minValue = Math.min.apply(null, tickLabels);
     const maxValue = Math.max.apply(null, tickLabels);
     
     this.tickPositions = new Array();
-    for (let i = 0; i < tickLabels.length; i++) {
-      this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.height);
+    
+    if (isLogarithmic) {
+      const lowerLog = Math.log10(minValue);
+      const upperLog = Math.log10(maxValue);
+      
+      for (let i = 0; i < tickLabels.length; i++) {
+        const logPlasmaConc = Math.log10(tickLabels[i]);
+        const fractionalPosition = (logPlasmaConc - lowerLog) / (upperLog - lowerLog);
+        this.tickPositions.push(fractionalPosition * axisRegion.height);
+      }
+    } 
+    else {
+      for (let i = 0; i < tickLabels.length; i++) {
+        this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.height);
+      }
     }
   }
 
@@ -130,17 +144,31 @@ class LeftYAxis {
 class RightYAxis {
   tickPositions;
   
-  constructor(axisLabel, axisRegion, tickLabels, axisColor) {
+  constructor(axisLabel, axisRegion, tickLabels, axisColor, isLogarithmic) {
     this.axisLabel = axisLabel;
     this.axisRegion = axisRegion;
     this.tickLabels = tickLabels;
     this.axisColor = axisColor;
 
+    const minValue = Math.min.apply(null, tickLabels);
     const maxValue = Math.max.apply(null, tickLabels);
     
     this.tickPositions = new Array();
-    for (let i = 0; i < tickLabels.length; i++) {
-      this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.height);
+
+    if (isLogarithmic) {
+      const lowerLog = Math.log10(minValue);
+      const upperLog = Math.log10(maxValue);
+      
+      for (let i = 0; i < tickLabels.length; i++) {
+        const logPlasmaConc = Math.log10(tickLabels[i]);
+        const fractionalPosition = (logPlasmaConc - lowerLog) / (upperLog - lowerLog);
+        this.tickPositions.push(fractionalPosition * axisRegion.height);
+      }
+    } 
+    else {
+      for (let i = 0; i < tickLabels.length; i++) {
+        this.tickPositions.push(tickLabels[i] / maxValue * axisRegion.height);
+      }
     }
   }
 

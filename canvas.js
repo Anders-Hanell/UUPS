@@ -138,19 +138,19 @@ function UpdateGraph() {
   const tickMarkLabelAlignment = "right";
 
   const plasmaConcAxisTickValues = new Array(0, 2500, 5000, 7500, 10000);
-  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor);
+  const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor, false);
 
   const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
   const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
 
   const infusionAxisTickValues = new Array(0, 25, 50, 75, 100);
-  const infusionAxis = new RightYAxis("Infusion rate (mg/min)", infusionAxisRegion, infusionAxisTickValues, infRateColor);
+  const infusionAxis = new RightYAxis("Infusion rate (mg/min)", infusionAxisRegion, infusionAxisTickValues, infRateColor, false);
 
   const elimAxisTickValues = infusionAxisTickValues;
-  const eliminationAxis = new RightYAxis("Elimination rate (mg/min)", eliminationAxisRegion, elimAxisTickValues, elimRateColor);
+  const eliminationAxis = new RightYAxis("Elimination rate (mg/min)", eliminationAxisRegion, elimAxisTickValues, elimRateColor, false);
 
   const clearanceAxisTickValues = new Array(0, 1, 2, 3, 4, 5);
-  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisRegion, clearanceAxisTickValues, "white");
+  const clearanceAxis = new RightYAxis("Clearance (ml/min)", clearanceAxisRegion, clearanceAxisTickValues, "white", false);
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {
