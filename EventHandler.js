@@ -207,18 +207,42 @@ function OnGraphButtonClick() {
   CurrentTab = "Graph";
   
   let container = document.getElementById("ContentContainer");
-  container.innerHTML = "<constant-infusion-graph></constant-infusion-graph>";
+  
+  if (CurrentModel == "ConstantInfusion") {
+    container.innerHTML = "<constant-infusion-graph></constant-infusion-graph>"
+    container.firstChild.style.height = "100%";
+    UpdateGraph();
+  }
 
-  container.firstChild.style.height = "100%";
-
-  UpdateGraph();
+  if (CurrentModel == "OralAdmin") {
+    container.innerHTML = "<oral-admin-graph></oral-admin-graph>"
+    container.firstChild.style.height = "100%";
+    OralAdmin_UpdateGraph();
+  }
+  
+  if (CurrentModel == "TwoCompartment") {
+    container.innerHTML = "<two-compartment-graph></two-compartment-graph>"
+    container.firstChild.style.height = "100%";
+    TwoCompartment_UpdateGraph();
+  }
 }
 
 function OnControlsButtonClick() {
   CurrentTab = "Controls";
   
   let container = document.getElementById("ContentContainer");
-  container.innerHTML = "<constant-infusion-controls></constant-infusion-controls>";
+  
+  if (CurrentModel == "ConstantInfusion") {
+    container.innerHTML = "<constant-infusion-controls></constant-infusion-controls>";
+  }
+
+  if (CurrentModel == "OralAdmin") {
+    container.innerHTML = "<oral-admin-controls></oral-admin-controls>"
+  }
+  
+  if (CurrentModel == "TwoCompartment") {
+    container.innerHTML = "<two-compartment-controls></two-compartment-controls>"
+  }
 
   container.firstChild.style.height = "100%";
 
@@ -232,9 +256,22 @@ function OnBothButtonClick() {
   CurrentTab = "Both";
 
   let container = document.getElementById("ContentContainer");
-  container.innerHTML = "<constant-infusion-both></constant-infusion-both>";
 
-  UpdateGraph();
+  if (CurrentModel == "ConstantInfusion") {
+    container.innerHTML = "<constant-infusion-both></constant-infusion-both>";
+    UpdateGraph();
+  }
+
+  if (CurrentModel == "OralAdmin") {
+    container.innerHTML = "<oral-admin-both></oral-admin-both>"
+    OralAdmin_UpdateGraph();
+  }
+  
+  if (CurrentModel == "TwoCompartment") {
+    container.innerHTML = "<two-compartment-both></two-compartment-both>"
+    TwoCompartment_UpdateGraph();
+  }
+
   UpdateSliderSize();
   UpdateSliderFontSizes();
   UpdateCheckboxFontSizes();
