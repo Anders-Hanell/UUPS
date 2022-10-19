@@ -277,3 +277,14 @@ class XAxis {
     ctx.fillText(xLabel, x, y);
   }
 }
+
+SetClipRegion = function(ctx, region) {
+  ctx.beginPath();
+
+  ctx.moveTo(region.left, region.bottom);  
+  ctx.lineTo(region.left, region.top);
+  ctx.lineTo(region.right, region.top);
+  ctx.lineTo(region.right, region.bottom);
+
+  ctx.clip();
+}

@@ -74,9 +74,6 @@ function UpdateGraph() {
   const bottomMargin = canvas.width * 0.03;
   const upperMargin = canvas.width * 0.01;
 
-  const plotWidth = canvas.width - leftMargin - rightMargin;
-  const plotHeight = canvas.height - bottomMargin - upperMargin;
-
   const yAxisHeight = canvas.height - bottomMargin - upperMargin;
 
   const plotRegion = new DrawRegion(
@@ -85,6 +82,12 @@ function UpdateGraph() {
     graphRegion.top + plotRegionMargin.top,
     graphRegion.right - numRightHandYaxises * yAxisWidth - (numRightHandYaxises - 1) * rightSideAxisSpacing - plotRegionMargin.right
   )
+
+  const clipRegion = new DrawRegion(
+    plotRegion.bottom + 1,
+    plotRegion.left - 1,
+    plotRegion.top - 1,
+    plotRegion.right + 1)
 
   const leftYAxisRegion = new DrawRegion(
     plotRegion.bottom,
@@ -133,9 +136,6 @@ function UpdateGraph() {
   const tickMarkLabelFont = canvasFonts[1];
   
   const drawSettings = new DrawSettings(axisLabelFont, tickMarkLabelFont, 2);
-
-  const axisLabelAlignment = "center";
-  const tickMarkLabelAlignment = "right";
 
   const plasmaConcAxisTickValues = new Array(0, 2500, 5000, 7500, 10000);
   const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor, false);
@@ -188,6 +188,17 @@ function UpdateGraph() {
   // y-axis
   leftYxis.drawAxis(ctx, drawSettings, tickSize);
 
+  // Infusion rate y-axis
+  infusionAxis.drawAxis(ctx, drawSettings, tickSize);
+
+  // Elimination rate y-axis
+  eliminationAxis.drawAxis(ctx, drawSettings, tickSize);
+
+  // Clearance y-axis
+  clearanceAxis.drawAxis(ctx, drawSettings, tickSize);
+
+  SetClipRegion(ctx, clipRegion);
+
   // Therapeutic Window
   if (BasicInfusion_DisplayTherapeuticWindow) {
     ctx.strokeStyle = halfLifeMarkerColor;
@@ -212,45 +223,36 @@ function UpdateGraph() {
     ctx.beginPath();
     ctx.moveTo(plotRegion.left, plotRegion.bottom);
     for (let i = 0; i < 1000; i++) {
-      if (yPos[i] <= plotRegion.height){
-        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - yPos[i]);
-      }
+      ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - yPos[i]);
     }
     ctx.stroke();
   }
 
-  // Infusion rate y-axis
-  infusionAxis.drawAxis(ctx, drawSettings, tickSize);
-
   // Infusion rate
   if (BasicInfusion_DisplayInfusionRate) {
+    ctx.strokeStyle = infRateColor;
+    ctx.fillStyle = infRateColor;
+    
     ctx.beginPath();
     ctx.moveTo(plotRegion.left, plotRegion.bottom - infYpos[0]);
     for (let i = 0; i < 1000; i++) {
-      if (infYpos[i] <= plotRegion.height){
-        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - infYpos[i]);
-      }
+      ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - infYpos[i]);
     }
     ctx.stroke();
   }
 
   // Elimination rate
-  ctx.strokeStyle = elimRateColor;
-  ctx.fillStyle = elimRateColor;
-
   if (BasicInfusion_DisplayEliminationRate) {
+    ctx.strokeStyle = elimRateColor;
+    ctx.fillStyle = elimRateColor;
+    
     ctx.beginPath();
     ctx.moveTo(plotRegion.left, plotRegion.bottom - elimYpos[0]);
     for (let i = 0; i < 1000; i++) {
-      if (elimYpos[i] <= plotRegion.height) {
-        ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - elimYpos[i]);
-      }
+      ctx.lineTo(plotRegion.left + timeValues[i], plotRegion.bottom - elimYpos[i]);
     }
     ctx.stroke();
   }
-
-  // Elimination rate y-axis
-  eliminationAxis.drawAxis(ctx, drawSettings, tickSize);
 
   // Clearance
   ctx.strokeStyle = "white";
@@ -264,9 +266,6 @@ function UpdateGraph() {
     ctx.lineTo(plotRegion.right, plotRegion.bottom - cleranceYPos);
     ctx.stroke();
   }
-
-  // Clearance y-axis
-  clearanceAxis.drawAxis(ctx, drawSettings, tickSize);
 
   // Five half lifes
   ctx.strokeStyle = halfLifeMarkerColor;

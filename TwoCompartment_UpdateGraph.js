@@ -57,6 +57,12 @@ function TwoCompartment_UpdateGraph() {
     graphRegion.right - numRightHandYaxises * yAxisWidth - (numRightHandYaxises - 1) * rightSideAxisSpacing - plotRegionMargin.right
   )
 
+  const clipRegion = new DrawRegion(
+    plotRegion.bottom + 1,
+    plotRegion.left - 1,
+    plotRegion.top - 1,
+    plotRegion.right + 1)
+
   const leftYAxisRegion = new DrawRegion(
     plotRegion.bottom,
     graphRegion.left,
@@ -174,6 +180,9 @@ function TwoCompartment_UpdateGraph() {
     leftYxis.drawAxis(ctx, drawSettings, tickSize);
   }
   
+  ctx.save();
+  SetClipRegion(ctx, clipRegion);
+
   if (TwoCompartment_DisplayPlasmaConcentration & ! TwoCompartment_LogPlasmaConcentration) {
     ctx.strokeStyle = plasmaConcColor;
     ctx.fillStyle = plasmaConcColor;
@@ -200,7 +209,11 @@ function TwoCompartment_UpdateGraph() {
     ctx.stroke();
   }
 
+  ctx.restore();
+
   // Peripheral concentration axis
+   
+
   if (TwoCompartment_LogPeripheralConcentration) {
     logPeripheralConcAxis.drawAxis(ctx, drawSettings, tickSize);
   }
@@ -208,6 +221,8 @@ function TwoCompartment_UpdateGraph() {
     peripheralConcAxis.drawAxis(ctx, drawSettings, tickSize);
   }
   
+  SetClipRegion(ctx, clipRegion);
+
   if (TwoCompartment_DisplayPeripheralConcentration & ! TwoCompartment_LogPeripheralConcentration) {
     ctx.strokeStyle = infRateColor;
     ctx.fillStyle = infRateColor;
