@@ -17,6 +17,7 @@ function PageFinishedLoading() {
   UpdateSliderFontSizes();
 
   UpdateCheckboxFontSizes();
+  UpdateCheckboxSize();
 
   UpdateGraph();
 
@@ -88,6 +89,7 @@ function OnSidebarButtonClick(buttonId) {
     UpdateSliderFontSizes();
 
     UpdateCheckboxFontSizes();
+    UpdateCheckboxSize();
     
     UpdateGraph();
   }
@@ -101,6 +103,7 @@ function OnSidebarButtonClick(buttonId) {
     UpdateSliderFontSizes();
 
     UpdateCheckboxFontSizes();
+    UpdateCheckboxSize();
 
     OralAdmin_UpdateGraph();
   }
@@ -114,6 +117,7 @@ function OnSidebarButtonClick(buttonId) {
     UpdateSliderFontSizes();
 
     UpdateCheckboxFontSizes();
+    UpdateCheckboxSize();
 
     TwoCompartment_UpdateGraph();
   }
@@ -275,6 +279,7 @@ function OnBothButtonClick() {
   UpdateSliderSize();
   UpdateSliderFontSizes();
   UpdateCheckboxFontSizes();
+  UpdateCheckboxSize();
 }
 
 function OnDescriptionButtonClick() {
