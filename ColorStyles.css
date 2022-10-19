@@ -24,22 +24,22 @@ body {
   color: coral;
 }
 
-#BasicInfusion_DisplayPlasmaConcentrationCheckbox p {
+#ConstantInfusion_DisplayPlasmaConcentrationCheckbox p {
   color: #428bca;
 }
 
-#BasicInfusion_DisplayInfusionRateCheckbox p {
+#ConstantInfusion_DisplayInfusionRateCheckbox p {
   color: #bd2b30;
 }
 
-#BasicInfusion_DisplayEliminationRateCheckbox p {
+#ConstantInfusion_DisplayEliminationRateCheckbox p {
   color: #3f9762;
 }
 
-#BasicInfusion_DisplayHalflifeMarkerCheckbox p {
+#ConstantInfusion_DisplayHalflifeMarkerCheckbox p {
   color: #fd9228;
 }
 
-#BasicInfusion_DisplayTherapeuticWindowCheckbox p {
+#ConstantInfusion_DisplayTherapeuticWindowCheckbox p {
   color: #fd9228;
 }/*# sourceMappingURL=ColorStyles.css.map */

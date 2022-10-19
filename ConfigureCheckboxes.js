@@ -1,62 +1,62 @@
-var BasicInfusion_DisplayPlasmaConcentration = true;
-var BasicInfusion_DisplayInfusionRate = false;
-var BasicInfusion_DisplayEliminationRate = false;
-var BasicInfusion_DisplayHalflifeMarker = false;
-var BasicInfusion_DisplayClearance = false;
-var BasicInfusion_DisplayTherapeuticWindow = true;
+var ConstantInfusion_DisplayPlasmaConcentration = true;
+var ConstantInfusion_DisplayInfusionRate = false;
+var ConstantInfusion_DisplayEliminationRate = false;
+var ConstantInfusion_DisplayHalflifeMarker = false;
+var ConstantInfusion_DisplayClearance = false;
+var ConstantInfusion_DisplayTherapeuticWindow = true;
 
-function ConfigureBasicInfusion_DisplayPlasmaConcentrationCheckbox() {
-  const container = document.getElementById('BasicInfusion_DisplayPlasmaConcentrationCheckbox');
+function ConfigureConstantInfusion_DisplayPlasmaConcentrationCheckbox() {
+  const container = document.getElementById('ConstantInfusion_DisplayPlasmaConcentrationCheckbox');
   const checkbox = container.querySelector('input');
   const label = container.querySelector('span');
 
   label.textContent = "Display plasma concentration";
-  checkbox.checked = BasicInfusion_DisplayPlasmaConcentration;
+  checkbox.checked = ConstantInfusion_DisplayPlasmaConcentration;
 }
 
-function ConfigureBasicInfusion_DisplayInfusionRateCheckbox() {
-  const container = document.getElementById('BasicInfusion_DisplayInfusionRateCheckbox');
+function ConfigureConstantInfusion_DisplayInfusionRateCheckbox() {
+  const container = document.getElementById('ConstantInfusion_DisplayInfusionRateCheckbox');
   const checkbox = container.querySelector('input');
   const label = container.querySelector('span');
 
   label.textContent = "Display infusion rate";
-  checkbox.checked = BasicInfusion_DisplayInfusionRate;
+  checkbox.checked = ConstantInfusion_DisplayInfusionRate;
 }
 
-function ConfigureBasicInfusion_DisplayEliminationRateCheckbox() {
-  const container = document.getElementById('BasicInfusion_DisplayEliminationRateCheckbox');
+function ConfigureConstantInfusion_DisplayEliminationRateCheckbox() {
+  const container = document.getElementById('ConstantInfusion_DisplayEliminationRateCheckbox');
   const checkbox = container.querySelector('input');
   const label = container.querySelector('span');
 
   label.textContent = "Display elimination rate";
-  checkbox.checked = BasicInfusion_DisplayEliminationRate;
+  checkbox.checked = ConstantInfusion_DisplayEliminationRate;
 }
 
-function ConfigureBasicInfusion_DisplayHalflifeMarkerCheckbox() {
-  const container = document.getElementById('BasicInfusion_DisplayHalflifeMarkerCheckbox');
+function ConfigureConstantInfusion_DisplayHalflifeMarkerCheckbox() {
+  const container = document.getElementById('ConstantInfusion_DisplayHalflifeMarkerCheckbox');
   const checkbox = container.querySelector('input');
   const label = container.querySelector('span');
 
   label.textContent = "Display 5 half-lifes marker";
-  checkbox.checked = BasicInfusion_DisplayHalflifeMarker;
+  checkbox.checked = ConstantInfusion_DisplayHalflifeMarker;
 }
 
-function ConfigureBasicInfusion_DisplayClearanceCheckbox() {
-  const container = document.getElementById('BasicInfusion_DisplayClearanceCheckbox');
+function ConfigureConstantInfusion_DisplayClearanceCheckbox() {
+  const container = document.getElementById('ConstantInfusion_DisplayClearanceCheckbox');
   const checkbox = container.querySelector('input');
   const label = container.querySelector('span');
 
   label.textContent = "Display clearance level";
-  checkbox.checked = BasicInfusion_DisplayClearance;
+  checkbox.checked = ConstantInfusion_DisplayClearance;
 }
 
-function ConfigureBasicInfusion_DisplayTherapeuticWindowCheckbox() {
-  const container = document.getElementById('BasicInfusion_DisplayTherapeuticWindowCheckbox');
+function ConfigureConstantInfusion_DisplayTherapeuticWindowCheckbox() {
+  const container = document.getElementById('ConstantInfusion_DisplayTherapeuticWindowCheckbox');
   const checkbox = container.querySelector('input');
   const label = container.querySelector('span');
 
   label.textContent = "Display therapeutic window";
-  checkbox.checked = BasicInfusion_DisplayTherapeuticWindow;
+  checkbox.checked = ConstantInfusion_DisplayTherapeuticWindow;
 }
 
 function UpdateCheckboxFontSizes() {
@@ -84,30 +84,30 @@ function UpdateCheckboxSize() {
   }
 }
 
-function BasicInfusion_OnCheckboxChange() {
-  let container = document.getElementById("BasicInfusion_DisplayPlasmaConcentrationCheckbox");
+function ConstantInfusion_OnCheckboxChange() {
+  let container = document.getElementById("ConstantInfusion_DisplayPlasmaConcentrationCheckbox");
   let checkbox = container.querySelector('input');
-  BasicInfusion_DisplayPlasmaConcentration = checkbox.checked;
+  ConstantInfusion_DisplayPlasmaConcentration = checkbox.checked;
 
-  container = document.getElementById("BasicInfusion_DisplayInfusionRateCheckbox");
+  container = document.getElementById("ConstantInfusion_DisplayInfusionRateCheckbox");
   checkbox = container.querySelector('input');
-  BasicInfusion_DisplayInfusionRate = checkbox.checked;
+  ConstantInfusion_DisplayInfusionRate = checkbox.checked;
 
-  container = document.getElementById("BasicInfusion_DisplayEliminationRateCheckbox");
+  container = document.getElementById("ConstantInfusion_DisplayEliminationRateCheckbox");
   checkbox = container.querySelector('input');
-  BasicInfusion_DisplayEliminationRate = checkbox.checked;
+  ConstantInfusion_DisplayEliminationRate = checkbox.checked;
 
-  container = document.getElementById("BasicInfusion_DisplayHalflifeMarkerCheckbox");
+  container = document.getElementById("ConstantInfusion_DisplayHalflifeMarkerCheckbox");
   checkbox = container.querySelector('input');
-  BasicInfusion_DisplayHalflifeMarker = checkbox.checked;
+  ConstantInfusion_DisplayHalflifeMarker = checkbox.checked;
 
-  container = document.getElementById("BasicInfusion_DisplayClearanceCheckbox");
+  container = document.getElementById("ConstantInfusion_DisplayClearanceCheckbox");
   checkbox = container.querySelector('input');
-  BasicInfusion_DisplayClearance = checkbox.checked;
+  ConstantInfusion_DisplayClearance = checkbox.checked;
 
-  container = document.getElementById("BasicInfusion_DisplayTherapeuticWindowCheckbox");
+  container = document.getElementById("ConstantInfusion_DisplayTherapeuticWindowCheckbox");
   checkbox = container.querySelector('input');
-  BasicInfusion_DisplayTherapeuticWindow = checkbox.checked;
+  ConstantInfusion_DisplayTherapeuticWindow = checkbox.checked;
 
   if (CurrentTab == "Both") {
     UpdateGraph();

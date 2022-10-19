@@ -2,7 +2,7 @@ function OnNewSliderValue() {
   UpdateSliderValueLabels();
   
   if (CurrentTab == "Both") {
-    if (CurrentModel == "BasicInfusion") {
+    if (CurrentModel == "ConstantInfusion") {
       UpdateGraph();
     }
     
@@ -24,12 +24,12 @@ function UpdateGraph() {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
-  const bolusDose = BasicInfusion_BolusDoseSliderValue * 1.0;
-  const infusionRate = BasicInfusion_InfusionRateSliderValue * 1.0;
-  const halflife = BasicInfusion_HalflifeSliderValue * 1.0;
-  const infusionTime = BasicInfusion_InfusionTimeSliderValue * 1.0;
+  const bolusDose = ConstantInfusion_BolusDoseSliderValue * 1.0;
+  const infusionRate = ConstantInfusion_InfusionRateSliderValue * 1.0;
+  const halflife = ConstantInfusion_HalflifeSliderValue * 1.0;
+  const infusionTime = ConstantInfusion_InfusionTimeSliderValue * 1.0;
 
-  var calculatedValues = BasicInfusion_CalculateValues(bolusDose, infusionRate, halflife, infusionTime);
+  var calculatedValues = ConstantInfusion_CalculateValues(bolusDose, infusionRate, halflife, infusionTime);
   var plasmaConc = calculatedValues[0];
   var elimRate = calculatedValues[1];
   var infSpeed = calculatedValues[2];
@@ -200,7 +200,7 @@ function UpdateGraph() {
   SetClipRegion(ctx, clipRegion);
 
   // Therapeutic Window
-  if (BasicInfusion_DisplayTherapeuticWindow) {
+  if (ConstantInfusion_DisplayTherapeuticWindow) {
     ctx.strokeStyle = halfLifeMarkerColor;
     ctx.fillStyle = halfLifeMarkerColor;
     
@@ -216,7 +216,7 @@ function UpdateGraph() {
   }
 
   // Plasma concentration
-  if (BasicInfusion_DisplayPlasmaConcentration) {
+  if (ConstantInfusion_DisplayPlasmaConcentration) {
     ctx.strokeStyle = plasmaConcColor;
     ctx.fillStyle = plasmaConcColor;
     
@@ -229,7 +229,7 @@ function UpdateGraph() {
   }
 
   // Infusion rate
-  if (BasicInfusion_DisplayInfusionRate) {
+  if (ConstantInfusion_DisplayInfusionRate) {
     ctx.strokeStyle = infRateColor;
     ctx.fillStyle = infRateColor;
     
@@ -242,7 +242,7 @@ function UpdateGraph() {
   }
 
   // Elimination rate
-  if (BasicInfusion_DisplayEliminationRate) {
+  if (ConstantInfusion_DisplayEliminationRate) {
     ctx.strokeStyle = elimRateColor;
     ctx.fillStyle = elimRateColor;
     
@@ -260,7 +260,7 @@ function UpdateGraph() {
   
   const cleranceYPos = clearanceLevels[0] / 5 * plotRegion.height;
 
-  if (BasicInfusion_DisplayClearance) {
+  if (ConstantInfusion_DisplayClearance) {
     ctx.beginPath();
     ctx.moveTo(plotRegion.left, plotRegion.bottom - cleranceYPos);
     ctx.lineTo(plotRegion.right, plotRegion.bottom - cleranceYPos);
@@ -271,7 +271,7 @@ function UpdateGraph() {
   ctx.strokeStyle = halfLifeMarkerColor;
   ctx.fillStyle = halfLifeMarkerColor;
 
-  if (BasicInfusion_DisplayHalflifeMarker) {
+  if (ConstantInfusion_DisplayHalflifeMarker) {
     ctx.beginPath();
     ctx.moveTo(plotRegion.left + halfLifeMarkerPosition, plotRegion.bottom);
     ctx.lineTo(plotRegion.left + halfLifeMarkerPosition, plotRegion.top);

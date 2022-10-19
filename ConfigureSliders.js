@@ -1,10 +1,10 @@
-var BasicInfusion_BolusDoseSliderValue = 0;
-var BasicInfusion_InfusionRateSliderValue = 75;
-var BasicInfusion_HalflifeSliderValue = 65;
-var BasicInfusion_InfusionTimeSliderValue = 750;
+var ConstantInfusion_BolusDoseSliderValue = 0;
+var ConstantInfusion_InfusionRateSliderValue = 75;
+var ConstantInfusion_HalflifeSliderValue = 65;
+var ConstantInfusion_InfusionTimeSliderValue = 750;
 
-function ConfigureBasicInfusion_BolusDoseSlider() {
-  const container = document.getElementById('BasicInfusion_BolusDoseSlider');
+function ConfigureConstantInfusion_BolusDoseSlider() {
+  const container = document.getElementById('ConstantInfusion_BolusDoseSlider');
   const slider = container.querySelector('.my-slider');
   const mainLabel = container.querySelector('.SliderMainLabel');
   const minLabel = container.querySelector('.SliderMinLabel');
@@ -18,17 +18,17 @@ function ConfigureBasicInfusion_BolusDoseSlider() {
 
   mainLabelSpan.innerText = "Bolus dose (mg)";
   minLabelSpan.innerText = "0";
-  valueLabelSpan.innerText = BasicInfusion_BolusDoseSliderValue;
+  valueLabelSpan.innerText = ConstantInfusion_BolusDoseSliderValue;
   maxLabelSpan.innerText = "10000";
 
   slider.min = "0";
   slider.max = "10000";
   slider.step = "10";
-  slider.value = BasicInfusion_BolusDoseSliderValue;
+  slider.value = ConstantInfusion_BolusDoseSliderValue;
 }
 
-function ConfigureBasicInfusion_InfusionRateSlider() {
-  const container = document.getElementById('BasicInfusion_InfusionRateSlider');
+function ConfigureConstantInfusion_InfusionRateSlider() {
+  const container = document.getElementById('ConstantInfusion_InfusionRateSlider');
   const slider = container.querySelector('.my-slider');
   const mainLabel = container.querySelector('.SliderMainLabel');
   const minLabel = container.querySelector('.SliderMinLabel');
@@ -42,17 +42,17 @@ function ConfigureBasicInfusion_InfusionRateSlider() {
 
   mainLabelSpan.innerText = "Infusion rate (mg/min)";
   minLabelSpan.innerText = "0";
-  valueLabelSpan.innerText = BasicInfusion_InfusionRateSliderValue;
+  valueLabelSpan.innerText = ConstantInfusion_InfusionRateSliderValue;
   maxLabelSpan.innerText = "100";
 
   slider.min = "0";
   slider.max = "100";
   slider.step = "1";
-  slider.value = BasicInfusion_InfusionRateSliderValue;
+  slider.value = ConstantInfusion_InfusionRateSliderValue;
 }
 
-function ConfigureBasicInfusion_HalflifeSlider() {
-  const container = document.getElementById('BasicInfusion_HalflifeSlider');
+function ConfigureConstantInfusion_HalflifeSlider() {
+  const container = document.getElementById('ConstantInfusion_HalflifeSlider');
   const slider = container.querySelector('.my-slider');
   const mainLabel = container.querySelector('.SliderMainLabel');
   const minLabel = container.querySelector('.SliderMinLabel');
@@ -66,17 +66,17 @@ function ConfigureBasicInfusion_HalflifeSlider() {
 
   mainLabelSpan.innerText = "Halflife (min)";
   minLabelSpan.innerText = "10";
-  valueLabelSpan.innerText = BasicInfusion_HalflifeSliderValue;
+  valueLabelSpan.innerText = ConstantInfusion_HalflifeSliderValue;
   maxLabelSpan.innerText = "200";
 
   slider.min = "10";
   slider.max = "200";
   slider.step = "1";
-  slider.value = BasicInfusion_HalflifeSliderValue
+  slider.value = ConstantInfusion_HalflifeSliderValue
 }
 
-function ConfigureBasicInfusion_InfusionTimeSlider() {
-  const container = document.getElementById('BasicInfusion_InfusionTimeSlider');
+function ConfigureConstantInfusion_InfusionTimeSlider() {
+  const container = document.getElementById('ConstantInfusion_InfusionTimeSlider');
   const slider = container.querySelector('.my-slider');
   const mainLabel = container.querySelector('.SliderMainLabel');
   const minLabel = container.querySelector('.SliderMinLabel');
@@ -90,18 +90,18 @@ function ConfigureBasicInfusion_InfusionTimeSlider() {
 
   mainLabelSpan.innerText = "Infusion time (min)";
   minLabelSpan.innerText = "0";
-  valueLabelSpan.innerText = BasicInfusion_InfusionTimeSliderValue;
+  valueLabelSpan.innerText = ConstantInfusion_InfusionTimeSliderValue;
   maxLabelSpan.innerText = "1000";
 
   slider.min = "0";
   slider.max = "1000";
   slider.step = "1";
-  slider.value = BasicInfusion_InfusionTimeSliderValue
+  slider.value = ConstantInfusion_InfusionTimeSliderValue
 }
 
 function UpdateSliderValueLabels() {
-  if (CurrentModel == "BasicInfusion") {
-    UpdateBasicInfusionSliderValueLabels();
+  if (CurrentModel == "ConstantInfusion") {
+    UpdateConstantInfusionSliderValueLabels();
   }  
 
   if (CurrentModel == "OralAdmin") {
@@ -113,34 +113,34 @@ function UpdateSliderValueLabels() {
   } 
 }
 
-function UpdateBasicInfusionSliderValueLabels() {
-  let container = document.getElementById('BasicInfusion_BolusDoseSlider');
+function UpdateConstantInfusionSliderValueLabels() {
+  let container = document.getElementById('ConstantInfusion_BolusDoseSlider');
   let slider = container.querySelector('.my-slider');
   let valueLabel = container.querySelector('.SliderValueLabel');
   let valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
-  BasicInfusion_BolusDoseSliderValue = slider.value;
+  ConstantInfusion_BolusDoseSliderValue = slider.value;
    
-  container = document.getElementById('BasicInfusion_InfusionRateSlider');
+  container = document.getElementById('ConstantInfusion_InfusionRateSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
   valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
-  BasicInfusion_InfusionRateSliderValue = slider.value;
+  ConstantInfusion_InfusionRateSliderValue = slider.value;
 
-  container = document.getElementById('BasicInfusion_HalflifeSlider');
+  container = document.getElementById('ConstantInfusion_HalflifeSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
   valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
-  BasicInfusion_HalflifeSliderValue = slider.value;
+  ConstantInfusion_HalflifeSliderValue = slider.value;
 
-  container = document.getElementById('BasicInfusion_InfusionTimeSlider');
+  container = document.getElementById('ConstantInfusion_InfusionTimeSlider');
   slider = container.querySelector('.my-slider');
   valueLabel = container.querySelector('.SliderValueLabel');
   valueSpan = valueLabel.querySelector('span');
   valueSpan.innerText = slider.value;
-  BasicInfusion_InfusionTimeSliderValue = slider.value;
+  ConstantInfusion_InfusionTimeSliderValue = slider.value;
 }
 
 function UpdateSliderFontSizes() {

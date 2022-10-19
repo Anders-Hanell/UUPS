@@ -1,7 +1,7 @@
 var NavigationIsVisible = true;
 var FullScreenIsActive = false;
 
-var CurrentModel = "BasicInfusion";
+var CurrentModel = "ConstantInfusion";
 
 function PageFinishedLoading() {
   let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
@@ -78,9 +78,9 @@ function OnSidebarButtonClick(buttonId) {
   const conentContainer = document.getElementById("ContentContainer");
   
   if (buttonId == "ConstantInfusionButton") {
-    CurrentModel = "BasicInfusion";
+    CurrentModel = "ConstantInfusion";
     
-    conentContainer.innerHTML = "<basic-infusion-both></basic-infusion-both>";
+    conentContainer.innerHTML = "<constant-infusion-both></constant-infusion-both>";
     
     AdjustButtonTextSize();
   
@@ -207,7 +207,7 @@ function OnGraphButtonClick() {
   CurrentTab = "Graph";
   
   let container = document.getElementById("ContentContainer");
-  container.innerHTML = "<basic-infusion-graph></basic-infusion-graph>";
+  container.innerHTML = "<constant-infusion-graph></constant-infusion-graph>";
 
   container.firstChild.style.height = "100%";
 
@@ -218,7 +218,7 @@ function OnControlsButtonClick() {
   CurrentTab = "Controls";
   
   let container = document.getElementById("ContentContainer");
-  container.innerHTML = "<basic-infusion-controls></basic-infusion-controls>";
+  container.innerHTML = "<constant-infusion-controls></constant-infusion-controls>";
 
   container.firstChild.style.height = "100%";
 
@@ -232,7 +232,7 @@ function OnBothButtonClick() {
   CurrentTab = "Both";
 
   let container = document.getElementById("ContentContainer");
-  container.innerHTML = "<basic-infusion-both></basic-infusion-both>";
+  container.innerHTML = "<constant-infusion-both></constant-infusion-both>";
 
   UpdateGraph();
   UpdateSliderSize();
@@ -245,12 +245,22 @@ function OnDescriptionButtonClick() {
   
   let container = document.getElementById("ContentContainer");
   
-  container.innerHTML = "<basic-infusion-description></basic-infusion-description>"
+  if (CurrentModel == "ConstantInfusion") {
+    container.innerHTML = "<constant-infusion-description></constant-infusion-description>"
+  }
+
+  if (CurrentModel == "OralAdmin") {
+    container.innerHTML = "<oral-admin-description></oral-admin-description>"
+  }
+  
+  if (CurrentModel == "TwoCompartment") {
+    container.innerHTML = "<two-compartment-description></two-compartment-description>"
+  }
 }
 
 function OnCheckboxChange() {
-  if (CurrentModel == "BasicInfusion") {
-    BasicInfusion_OnCheckboxChange();
+  if (CurrentModel == "ConstantInfusion") {
+    ConstantInfusion_OnCheckboxChange();
   }
 
   if (CurrentModel == "OralAdmin") {
