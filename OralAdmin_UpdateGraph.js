@@ -106,14 +106,14 @@ function OralAdmin_UpdateGraph() {
   const plasmaConcAxisTickValues = new Array(0, 250, 500, 700, 1000);
   const leftYxis = new LeftYAxis("Plasma concentration (mg/ml)", leftYAxisRegion, plasmaConcAxisTickValues, plasmaConcColor, false);
 
-  const timeAxisLabels = new Array(0, 250, 500, 750, 1000);
-  const xAxis = new XAxis("Time (minutes)", xAxisRegion, timeAxisLabels, "white");
+  const timeAxisLabels = new Array(0, 5, 10, 15, 20);
+  const xAxis = new XAxis("Time (days)", xAxisRegion, timeAxisLabels, "white");
 
   const releaseRateAxisTickValues = new Array(0, 25, 50, 75, 100);
-  const releaseRateAxis = new RightYAxis("Release rate (mg/min)", releaseRateAxisRegion, releaseRateAxisTickValues, releaseRateColor, false);
+  const releaseRateAxis = new RightYAxis("Release rate (mg/hour)", releaseRateAxisRegion, releaseRateAxisTickValues, releaseRateColor, false);
 
   const absorbtionAxisTickValues = new Array(0, 25, 50, 75, 100);
-  const absorbtionRateAxis = new RightYAxis("Absorbtion rate (mg/min)", absorbtionAxisRegion, absorbtionAxisTickValues, absRateColor, false);
+  const absorbtionRateAxis = new RightYAxis("Absorbtion rate (mg/hour)", absorbtionAxisRegion, absorbtionAxisTickValues, absRateColor, false);
 
   var yPos = [];
   for (let i = 0; i < 1000; i++) {

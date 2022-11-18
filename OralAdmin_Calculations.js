@@ -4,7 +4,7 @@ function OralAdmin_CalculateValues(dailyDose, tabletsPerDay, dissolveTime, bioav
   const Vd = 70;
 
   halflife = 50;
-  var fiveHalfLifes = 5 * halflife;
+  // var fiveHalfLifes = 5 * halflife;
   var clearance = Vd * Math.log(2) / halflife;
 
   const numTimepoints = 1000.0;
@@ -52,11 +52,6 @@ function OralAdmin_CalculateValues(dailyDose, tabletsPerDay, dissolveTime, bioav
     absorbtionRate.push(releaseRate[i] * bioavailability / 100);
   }
 
-
-
-
-
-
   var currentConc = 0
   var plasmaConc = [];
   plasmaConc.push(0);
@@ -74,7 +69,6 @@ function OralAdmin_CalculateValues(dailyDose, tabletsPerDay, dissolveTime, bioav
 
     prevConc = currentConc;
   }
-
 
   return new Array(plasmaConc, releaseRate, absorbtionRate);
 }

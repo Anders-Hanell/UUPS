@@ -123,7 +123,12 @@ function OnSidebarButtonClick(buttonId) {
   }
 
   if (buttonId == "AboutButton") {
-    conentContainer.innerHTML = "<h1>Created in Uppsala!</h1>";
+    conentContainer.innerHTML = `
+      Uppsala Univeristy Pharmacokinetic Simulator (UUPS) is intended for eduacation in pharmacokinetics.<br><br>
+      It should not be used for clinical desicion making or research.<br><br>
+      UUPS is free to use for everyone.<br><br>
+      Created by Anders Hånell in 2022.<br><br>
+    `;
   }
 }
 
