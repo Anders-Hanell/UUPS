@@ -1,9 +1,3 @@
-var NavigationIsVisible = true;
-var FullScreenIsActive = false;
-
-var CurrentModel = "SingleDose";
-var SingleDose_AdminTypeSelection = "Oral";
-
 function PageFinishedLoading() {
   let bodyHeight = screen.availHeight - (window.outerHeight - window.innerHeight);
   let bodyWidth = screen.availWidth - (window.outerWidth - window.innerWidth);
@@ -14,18 +8,22 @@ function PageFinishedLoading() {
   AdjustFontSize("MainTitlePanel", 0.95, 0.60);
   AdjustButtonTextSize();
   
+  UpdateUserInterfaceComponents();
+
+  document.addEventListener('fullscreenchange', FullScreenModeChanged, false);
+}
+
+function UpdateUserInterfaceComponents() {
   UpdateSliderSize();
   UpdateSliderFontSizes();
 
-  UpdateCheckboxFontSizes();
   UpdateCheckboxSize();
-
-  UpdateRadioButtonFontSizes();
+  UpdateCheckboxFontSizes();
+  
   UpdateRadioButtonSize();
+  UpdateRadioButtonFontSizes();
 
-  SingleDose_UpdateGraph();
-
-  document.addEventListener('fullscreenchange', FullScreenModeChanged, false);
+  UpdateCurrentGraph();
 }
 
 function AdjustFontSize(containerId, maxWidthPercent, maxHeightPercent) {
@@ -85,21 +83,13 @@ function OnSidebarButtonClick(buttonId) {
   
   if (buttonId == "SingleDoseButton") {
     CurrentModel = "SingleDose";
+    SingleDose_AdminTypeSelection = "Oral";
     
     conentContainer.innerHTML = "<single-dose-both></single-dose-both>";
     
     AdjustButtonTextSize();
-  
-    UpdateSliderSize();
-    UpdateSliderFontSizes();
-
-    UpdateCheckboxFontSizes();
-    UpdateCheckboxSize();
     
-    UpdateRadioButtonFontSizes();
-    UpdateRadioButtonSize();
-
-    SingleDose_UpdateGraph();
+    UpdateUserInterfaceComponents();
   }
 
   if (buttonId == "ConstantInfusionButton") {
@@ -109,27 +99,14 @@ function OnSidebarButtonClick(buttonId) {
     
     AdjustButtonTextSize();
   
-    UpdateSliderSize();
-    UpdateSliderFontSizes();
-
-    UpdateCheckboxFontSizes();
-    UpdateCheckboxSize();
-    
-    UpdateGraph();
+    UpdateUserInterfaceComponents();
   }
 
   if (buttonId == "OralAdministrationButton") {
     CurrentModel = "OralAdmin";
     
     conentContainer.innerHTML = "<oral-admin-both></oral-admin-both>";
-    
-    UpdateSliderSize();
-    UpdateSliderFontSizes();
-
-    UpdateCheckboxFontSizes();
-    UpdateCheckboxSize();
-
-    OralAdmin_UpdateGraph();
+    UpdateUserInterfaceComponents();
   }
 
   if (buttonId == "TwoCompartmentButton") {
@@ -137,13 +114,7 @@ function OnSidebarButtonClick(buttonId) {
     
     conentContainer.innerHTML = "<two-compartment-both></two-compartment-both>";
     
-    UpdateSliderSize();
-    UpdateSliderFontSizes();
-
-    UpdateCheckboxFontSizes();
-    UpdateCheckboxSize();
-
-    TwoCompartment_UpdateGraph();
+    UpdateUserInterfaceComponents();
   }
 
   if (buttonId == "AboutButton") {
@@ -231,10 +202,8 @@ function FullScreenModeChanged() {
     FullScreenIsActive = false;
   }
 
-  UpdateGraph();
+  UpdateCurrentGraph();
 }
-
-var CurrentTab = "Both";
 
 function OnGraphButtonClick() {
   CurrentTab = "Graph";
@@ -244,26 +213,24 @@ function OnGraphButtonClick() {
   if (CurrentModel == "SingleDose") {
     container.innerHTML = "<single-dose-graph></single-dose-graph>"
     container.firstChild.style.height = "100%";
-    SingleDose_UpdateGraph();
   }
 
   if (CurrentModel == "ConstantInfusion") {
     container.innerHTML = "<constant-infusion-graph></constant-infusion-graph>"
     container.firstChild.style.height = "100%";
-    UpdateGraph();
   }
 
   if (CurrentModel == "OralAdmin") {
     container.innerHTML = "<oral-admin-graph></oral-admin-graph>"
     container.firstChild.style.height = "100%";
-    OralAdmin_UpdateGraph();
   }
   
   if (CurrentModel == "TwoCompartment") {
     container.innerHTML = "<two-compartment-graph></two-compartment-graph>"
     container.firstChild.style.height = "100%";
-    TwoCompartment_UpdateGraph();
   }
+
+  UpdateCurrentGraph();
 }
 
 function OnControlsButtonClick() {
@@ -289,10 +256,7 @@ function OnControlsButtonClick() {
 
   container.firstChild.style.height = "100%";
 
-  UpdateSliderSize();
-  UpdateSliderFontSizes();
-  UpdateCheckboxFontSizes();
-  UpdateCheckboxSize();
+  UpdateUserInterfaceComponents();
 }
 
 function OnBothButtonClick() {
@@ -302,28 +266,21 @@ function OnBothButtonClick() {
 
   if (CurrentModel == "SingleDose") {
     container.innerHTML = "<single-dose-both></single-dose-both>";
-    SingleDose_UpdateGraph();
   }
 
   if (CurrentModel == "ConstantInfusion") {
     container.innerHTML = "<constant-infusion-both></constant-infusion-both>";
-    UpdateGraph();
   }
 
   if (CurrentModel == "OralAdmin") {
     container.innerHTML = "<oral-admin-both></oral-admin-both>"
-    OralAdmin_UpdateGraph();
   }
   
   if (CurrentModel == "TwoCompartment") {
     container.innerHTML = "<two-compartment-both></two-compartment-both>"
-    TwoCompartment_UpdateGraph();
   }
 
-  UpdateSliderSize();
-  UpdateSliderFontSizes();
-  UpdateCheckboxFontSizes();
-  UpdateCheckboxSize();
+  UpdateUserInterfaceComponents();
 }
 
 function OnDescriptionButtonClick() {
@@ -367,10 +324,10 @@ function OnCheckboxChange() {
 }
 
 function OnRadioButtonChange(buttonId) {
-  if (buttonId == "A"){
+  if (buttonId == "A") {
     SingleDose_AdminTypeSelection = "Oral";
   }
-  else if (buttonId == "B"){
+  else if (buttonId == "B") {
     SingleDose_AdminTypeSelection = "IV";
   }
 
