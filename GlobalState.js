@@ -1,7 +1,7 @@
-var NavigationIsVisible = true;
-var FullScreenIsActive = false;
+class GlobalState {
+  static NavigationIsVisible = true
+  static CurrentPage = "SingleDose"
+  static CurrentTab = "Both";
 
-var CurrentModel = "SingleDose";
-var SingleDose_AdminTypeSelection = "Oral";
-
-var CurrentTab = "Both";
+  static SingleDose_AdminTypeSelection = "Oral";
+}
